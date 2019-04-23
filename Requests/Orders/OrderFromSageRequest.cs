@@ -1,14 +1,14 @@
-﻿namespace Clarity.Sage.SalesOrderHeaders
+﻿namespace Clarity.Sage.Orders
 {
     using System;
 
-    public abstract class SalesOrderHeaderFromSageRequest<THeader, TLine> : RecordFromSageRequest<THeader>
-        where THeader : SalesOrderHeader<TLine>
-        where TLine : SalesOrderDetail
+    public abstract class OrderFromSageRequest<THeader, TLine> : RecordFromSageRequest<THeader>
+        where THeader : Order<TLine>
+        where TLine : OrderLine
     {
-        protected SalesOrderHeaderFromSageRequest(
+        protected OrderFromSageRequest(
             DateTime? compareDate,
-            string descColumn = SalesOrderHeader<TLine>.DefaultDesc,
+            string descColumn = Order<TLine>.DefaultDesc,
             string defaultDescColumn = Record.DefaultDesc,
             string filter = "",
             string begin = "",

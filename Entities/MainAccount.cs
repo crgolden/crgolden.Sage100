@@ -54,7 +54,7 @@
         /// Valid: Y, N
         /// Notes: Y = Year end, N = Never *
         /// </summary>
-        public char ClearBalance { get; set; }
+        public bool ClearBalance { get; set; }
 
         /// <summary>
         /// Account Group

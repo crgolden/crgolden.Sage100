@@ -8,6 +8,8 @@
         {
             CreateMap<string[], Record>()
                 .IncludeAllDerived()
+                .ForMember(dest => dest.Created, opt => opt.Ignore())
+                .ForMember(dest => dest.Updated, opt => opt.Ignore())
                 .ForMember(dest => dest.DateCreated, opt => opt.MapFrom(src => src[0]))
                 .ForMember(dest => dest.TimeCreated, opt => opt.MapFrom(src => src[1]))
                 .ForMember(dest => dest.UserCreatedKey, opt => opt.MapFrom(src => src[2]))

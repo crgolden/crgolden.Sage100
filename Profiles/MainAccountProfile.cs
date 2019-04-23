@@ -15,7 +15,7 @@
                 .ForMember(dest => dest.DateStart, opt => opt.MapFrom(src => src[10].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.DateEnd, opt => opt.MapFrom(src => src[11].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => char.Parse(src[12])))
-                .ForMember(dest => dest.ClearBalance, opt => opt.MapFrom(src => char.Parse(src[13])))
+                .ForMember(dest => dest.ClearBalance, opt => opt.MapFrom(src => src[13].ToBool()))
                 .ForMember(dest => dest.AccountGroup, opt => opt.MapFrom(src => src[14]))
                 .ForMember(dest => dest.AccountCategory, opt => opt.MapFrom(src => char.Parse(src[15])))
                 .ForMember(dest => dest.AccountType, opt => opt.MapFrom(src => src[16]))

@@ -66,33 +66,49 @@
 
         public virtual async Task<Unit> Handle(TRequest request, CancellationToken token)
         {
-            token.ThrowIfCancellationRequested();
-            Dictionary<EntityState, TEntity[]> records;
-            using (var provideX = new DispatchObject("ProvideX.Script"))
-            {
-                provideX.InvokeMethod("Init", SageOptions.Path);
-                using (var session = new DispatchObject(provideX.InvokeMethod("NewObject", "SY_Session")))
-                {
-                    session.InvokeMethod("nSetUser", SageOptions.Username, SageOptions.Password);
-                    session.InvokeMethod("nSetCompany", SageOptions.Company);
-                    using (var busObj = provideX.GetBusObj(session, request.ModuleName, request.ProgramName, request.BusObjName))
-                    {
-                        records = await busObj.GetGroupedRecords(
-                            compareDate: request.CompareDate,
-                            selector: (r, s) => Selector(busObj, Context, Mapper, Logger, r, s, Opts, token),
-                            groupedKeysDescColumn: request.DefaultDescColumn,
-                            recordsDescColumn: request.DescColumn,
-                            keyColumn: request.KeyColumn,
-                            filter: request.Filter,
-                            begin: request.Begin,
-                            end: request.End,
-                            keyFilter: KeyFilter).ConfigureAwait(false);
-                    };
-                }
-            }
-
+            var records = await GetRecords(
+                request: request,
+                selector: (d, r, s, t) => Selector(d, Context, Mapper, Logger, r, s, Opts, t),
+                token: token).ConfigureAwait(false);
             if (records?.Count > 0) await Context.ProcessAsync(records, token).ConfigureAwait(false);
             return Unit.Value;
+        }
+
+        protected virtual async Task<Dictionary<EntityState, TEntity[]>> GetRecords(
+            TRequest request,
+            Func<DispatchObject, string, EntityState, CancellationToken, Task<TEntity>> selector,
+            CancellationToken token)
+        {
+            using (var provideX = GetProvideX())
+            using (var session = GetSession(provideX))
+            using (var busObj = provideX.GetBusObj(session, request.ModuleName, request.ProgramName, request.BusObjName))
+            return await busObj.GetGroupedRecords(
+                compareDate: request.CompareDate,
+                context: Context,
+                selector: (d, r, s, t) => selector(d, r, s, t),
+                groupedKeysDescColumn: request.DefaultDescColumn,
+                recordsDescColumn: request.DescColumn,
+                keyColumn: request.KeyColumn,
+                filter: request.Filter,
+                begin: request.Begin,
+                end: request.End,
+                keyFilter: KeyFilter,
+                token: token).ConfigureAwait(false);
+        }
+
+        protected virtual DispatchObject GetProvideX()
+        {
+            var provideX = new DispatchObject("ProvideX.Script");
+            provideX.InvokeMethod("Init", SageOptions.Path);
+            return provideX;
+        }
+
+        protected virtual DispatchObject GetSession(DispatchObject provideX)
+        {
+            var session = new DispatchObject(provideX.InvokeMethod("NewObject", "SY_Session"));
+            session.InvokeMethod("nSetUser", SageOptions.Username, SageOptions.Password);
+            session.InvokeMethod("nSetCompany", SageOptions.Company);
+            return session;
         }
     }
 }

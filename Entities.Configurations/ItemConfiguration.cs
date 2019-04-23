@@ -7,6 +7,7 @@
     {
         public override void Configure(EntityTypeBuilder<T> item)
         {
+            base.Configure(item);
             item.HasIndex(e => e.ItemCode).IsUnique();
             item.Property(e => e.ItemCode).HasMaxLength(30);
             item.Property(e => e.ItemType).IsRequired();
@@ -90,7 +91,6 @@
             item.Property(e => e.Volume).HasColumnType("decimal(11,4)");
             item.Property(e => e.RestockingCharge).HasColumnType("decimal(11,3)");
             item.Property(e => e.TotalInventoryValue).HasColumnType("decimal(15,2)");
-            base.Configure(item);
             item.ToTable("Items");
         }
     }

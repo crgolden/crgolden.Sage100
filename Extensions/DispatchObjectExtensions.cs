@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -32,14 +33,16 @@
         public static async Task<Dictionary<EntityState, T[]>> GetGroupedRecords<T>(
             this DispatchObject busObj,
             DateTime? compareDate,
-            Func<string, EntityState, Task<T>> selector,
+            DbContext context,
+            Func<DispatchObject, string, EntityState, CancellationToken, Task<T>> selector,
             string groupedKeysDescColumn,
             string recordsDescColumn,
             string keyColumn,
             string filter,
             string begin,
             string end,
-            Func<IEnumerable<string>, string, string> keyFilter)
+            Func<IEnumerable<string>, string, string> keyFilter,
+            CancellationToken token)
             where T : Record
         {
             var dictionary = new Dictionary<EntityState, T[]>();
@@ -58,8 +61,12 @@
                     keyColumn: keyColumn,
                     state: keyValuePair.Key,
                     keys: keyValuePair.Value,
-                    keyFilter: keyFilter).ConfigureAwait(false);
+                    keyFilter: keyFilter,
+                    token: token).ConfigureAwait(false);
                 dictionary.Add(keyValuePair.Key, entities);
+                //dictionary.Add(
+                //    key: keyValuePair.Key,
+                //    value: await entities.ProcessAsync(context, token).ConfigureAwait(false));
             }
 
             return dictionary;
@@ -76,23 +83,14 @@
             CancellationToken token)
             where T : Record
         {
-            async Task<T> GetRecord(string[] recordProperties)
-            {
-                try
-                {
-                    return mapper.Map<string[], T>(
-                            source: recordProperties,
-                            opts: await opts[0](context, recordProperties, state, token).ConfigureAwait(false));
-                }
-                catch (AutoMapperMappingException e)
-                {
-                    logger.LogError(
-                        exception: e,
-                        message: "Error mapping values {@record} to type {@type}",
-                        args: new object[] { recordProperties, typeof(T).Name });
-                    return default;
-                }
-            }
+            async Task<T> GetRecord(string[] recordProperties) => await Map<T>(
+                context: context,
+                mapper: mapper,
+                logger: logger,
+                state: state,
+                opts: opts[0],
+                properties: recordProperties,
+                token: token).ConfigureAwait(false);
 
             var recordValues = record.Split(new[] { Record.Sep }, StringSplitOptions.None);
             if (recordValues.Length > 1) return await GetRecord(recordValues).ConfigureAwait(false);
@@ -102,19 +100,36 @@
             return await GetRecord(recordValues).ConfigureAwait(false);
         }
 
-        public static async Task<THeader> GetSalesOrderHeader<THeader, TLine>(
+        public static async Task<THeader> GetHeader<THeader, TLine>(
             this DispatchObject busObj,
             DbContext context,
             IMapper mapper,
             ILogger logger,
             EntityState state,
             string record,
+            string[] lineColumns,
             Func<DbContext, string[], EntityState, CancellationToken, Task<Action<IMappingOperationOptions>>>[] opts,
-            CancellationToken token)
-            where THeader : SalesOrderHeader<TLine>
-            where TLine : SalesOrderDetail
+            CancellationToken token,
+            Func<
+                DispatchObject,
+                THeader,
+                DbContext,
+                IMapper,
+                ILogger,
+                EntityState,
+                string[],
+                Func<DbContext,
+                    string[],
+                    EntityState,
+                    CancellationToken,
+                    Task<Action<IMappingOperationOptions>>>,
+                CancellationToken,
+                Task
+            > setLines)
+            where THeader : Header<TLine>
+            where TLine : Line
         {
-            var salesOrderHeader = await busObj.GetRecord<THeader>(
+            var header = await busObj.GetRecord<THeader>(
                 context: context,
                 mapper: mapper,
                 logger: logger,
@@ -122,20 +137,25 @@
                 record: record,
                 opts: opts,
                 token: token).ConfigureAwait(false);
-            if (salesOrderHeader.Equals(default(THeader))) return default;
-            using (var oLines = new DispatchObject(busObj.GetProperty("oLines")))
+            if (header.Equals(default(THeader))) return default;
+            var lines = busObj.GetProperty("oLines");
+            if (lines == null) return header;
+            using (var oLines = new DispatchObject(lines))
             {
                 oLines.InvokeMethod("nMoveFirst");
-                salesOrderHeader.Lines = await oLines.GetLines(
-                        context: context,
-                        mapper: mapper,
-                        state: state,
-                        opts: opts[1],
-                        lines: new HashSet<TLine>(),
-                        token: token).ConfigureAwait(false);
+                await setLines(
+                    arg1: oLines,
+                    arg2: header,
+                    arg3: context,
+                    arg4: mapper,
+                    arg5: logger,
+                    arg6: state,
+                    arg7: lineColumns,
+                    arg8: opts[1],
+                    arg9: token).ConfigureAwait(false);
             }
 
-            return salesOrderHeader;
+            return header;
         }
 
         private static Dictionary<EntityState, string[]> GetGroupedKeys<T>(
@@ -178,42 +198,160 @@
                 };
         }
 
-        private static async Task<ICollection<T>> GetLines<T>(
+        public static async Task SetInvoiceLines<THeader, TLine>(
+            this DispatchObject busObj,
+            THeader invoice,
+            DbContext context,
+            IMapper mapper,
+            ILogger logger,
+            EntityState state,
+            string[] lineColumns,
+            Func<
+                DbContext,
+                string[],
+                EntityState,
+                CancellationToken,
+                Task<Action<IMappingOperationOptions>>
+                > opts,
+            CancellationToken token)
+            where THeader : Invoice<TLine>
+            where TLine : InvoiceLine
+        {
+            var isEof = (int)busObj.GetProperty("nEOF");
+            if (isEof == 1) return;
+            invoice.Lines = invoice.Lines ?? new HashSet<TLine>();
+            var value = new object[2];
+            value[0] = "InvoiceNo$";
+            value[1] = string.Empty;
+            busObj.InvokeMethodByRef("nGetValue", value);
+            if ($"{value[1]}" != invoice.InvoiceNo)
+            {
+                Debug.WriteLine($"InvoiceNo: {value[1]}");
+                busObj.InvokeMethod("nMoveNext");
+                await busObj.SetInvoiceLines<THeader, TLine>(
+                    invoice: invoice,
+                    context: context,
+                    mapper: mapper,
+                    logger: logger,
+                    state: state,
+                    lineColumns: lineColumns,
+                    opts: opts,
+                    token: token).ConfigureAwait(false);
+                return;
+            }
+
+            var line = await busObj.GetLine<TLine>(
+                context: context,
+                mapper: mapper,
+                logger: logger,
+                state: state,
+                opts: opts,
+                token: token,
+                lineColumns: lineColumns,
+                value: value).ConfigureAwait(false);
+            if (line != default && !string.IsNullOrEmpty(line.LineKey)) invoice.Lines.Add(line);
+            busObj.InvokeMethod("nMoveNext");
+            await busObj.SetInvoiceLines<THeader, TLine>(
+                invoice: invoice,
+                context: context,
+                mapper: mapper,
+                logger: logger,
+                state: state,
+                lineColumns: lineColumns,
+                opts: opts,
+                token: token).ConfigureAwait(false);
+        }
+
+        public static async Task SetOrderLines<THeader, TLine>(
+            this DispatchObject busObj,
+            THeader order,
+            DbContext context,
+            IMapper mapper,
+            ILogger logger,
+            EntityState state,
+            string[] lineColumns,
+            Func<
+                DbContext,
+                string[],
+                EntityState,
+                CancellationToken,
+                Task<Action<IMappingOperationOptions>>
+                > opts,
+            CancellationToken token)
+            where THeader : Order<TLine>
+            where TLine : OrderLine
+        {
+            var isEof = (int)busObj.GetProperty("nEOF");
+            if (isEof == 1) return;
+            order.Lines = order.Lines ?? new HashSet<TLine>();
+            var line = await busObj.GetLine<TLine>(
+                context: context,
+                mapper: mapper,
+                logger: logger,
+                state: state,
+                opts: opts,
+                token: token,
+                lineColumns: lineColumns,
+                value: new object[2]).ConfigureAwait(false);
+            if (line != default && !string.IsNullOrEmpty(line.LineKey)) order.Lines.Add(line);
+            busObj.InvokeMethod("nMoveNext");
+            await busObj.SetOrderLines<THeader, TLine>(
+                order: order,
+                context: context,
+                mapper: mapper,
+                logger: logger,
+                state: state,
+                lineColumns: lineColumns,
+                opts: opts,
+                token: token).ConfigureAwait(false);
+        }
+
+        private static async Task<TLine> GetLine<TLine>(
             this DispatchObject busObj,
             DbContext context,
             IMapper mapper,
+            ILogger logger,
             EntityState state,
-            Func<DbContext, string[], EntityState, CancellationToken, Task<Action<IMappingOperationOptions>>> opts,
-            ICollection<T> lines,
-            CancellationToken token)
-            where T : SalesOrderDetail
+            Func<
+                DbContext,
+                string[],
+                EntityState,
+                CancellationToken,
+                Task<Action<IMappingOperationOptions>>
+                > opts,
+            CancellationToken token,
+            string[] lineColumns,
+            object[] value)
+            where TLine : Line
         {
-            var line = (string)busObj.InvokeMethod("nGetOrigRecord$");
-            if (string.IsNullOrEmpty(line)) return lines;
-            var lineValues = line.Split('Š');
-            var lineDetail = mapper.Map<string[], T>(
-                    source: lineValues,
-                    opts: await opts(context, lineValues, state, token).ConfigureAwait(false));
-            lines.Add(lineDetail);
-            busObj.InvokeMethod("nMoveNext");
-            int isEof = (int)busObj.GetProperty("nEOF");
-            return isEof == 1 ? lines : await busObj.GetLines(
+            var lineProperties = new string[lineColumns.Length];
+            for (var i = 0; i < lineProperties.Length; i++)
+            {
+                value[0] = lineColumns[i];
+                value[1] = lineColumns[i].EndsWith("$") ? (object)string.Empty : (object)0;
+                busObj.InvokeMethodByRef("nGetValue", value);
+                lineProperties[i] = $"{value[1]}";
+            }
+
+            return await Map<TLine>(
                 context: context,
                 mapper: mapper,
+                logger: logger,
                 state: state,
                 opts: opts,
-                lines: lines,
+                properties: lineProperties,
                 token: token).ConfigureAwait(false);
         }
 
         private static async Task<T[]> GetRecords<T>(
             this DispatchObject busObj,
-            Func<string, EntityState, Task<T>> selector,
+            Func<DispatchObject, string, EntityState, CancellationToken, Task<T>> selector,
             string descColumn,
             string keyColumn,
             EntityState state,
             string[] keys,
-            Func<IEnumerable<string>, string, string> keyFilter)
+            Func<IEnumerable<string>, string, string> keyFilter,
+            CancellationToken token)
             where T : Record
         {
             var records = new List<T>();
@@ -226,7 +364,8 @@
                     keyColumn: keyColumn,
                     state: state,
                     keys: keys.Skip(skip).Take(take),
-                    keyFilter: keyFilter).ConfigureAwait(false));
+                    keyFilter: keyFilter,
+                    token: token).ConfigureAwait(false));
                 skip += take;
             }
 
@@ -238,7 +377,8 @@
                     keyColumn: keyColumn,
                     state: state,
                     keys: keys.Skip(skip).Take(remainder),
-                    keyFilter: keyFilter).ConfigureAwait(false));
+                    keyFilter: keyFilter,
+                    token: token).ConfigureAwait(false));
             }
 
             return records.ToArray();
@@ -246,14 +386,16 @@
 
         private static async Task<IEnumerable<T>> GetRecords<T>(
             this DispatchObject busObj,
-            Func<string, EntityState, Task<T>> selector,
+            Func<DispatchObject, string, EntityState, CancellationToken, Task<T>> selector,
             string descColumn,
             string keyColumn,
             EntityState state,
             IEnumerable<string> keys,
-            Func<IEnumerable<string>, string, string> keyFilter)
+            Func<IEnumerable<string>, string, string> keyFilter,
+            CancellationToken token)
             where T : Record
         {
+            var records = new List<T>();
             var args = new[]
             {
                 descColumn,
@@ -265,11 +407,42 @@
                 string.Empty
             };
             busObj.InvokeMethodByRef("nGetResultSets", args);
-            return await Task.WhenAll(args[2]
-                    .Split('Š')
-                    .Where(x => !string.IsNullOrEmpty(x) && !string.IsNullOrWhiteSpace(x))
-                    .Select(async x => await selector(x, state).ConfigureAwait(false)))
-                .ConfigureAwait(false);
+            foreach (var result in args[2]
+                .Split('Š')
+                .Where(x => !string.IsNullOrEmpty(x) && !string.IsNullOrWhiteSpace(x))
+                .Zip(keys, (record, key) => Tuple.Create(record, key)))
+            {
+                busObj.InvokeMethod("nSetKey", result.Item2);
+                var record = await selector(busObj, result.Item1, state, token).ConfigureAwait(false);
+                if (record != default) records.Add(record);
+            }
+
+            return records.ToArray();
+        }
+
+        private static async Task<T> Map<T>(
+            DbContext context,
+            IMapper mapper,
+            ILogger logger,
+            EntityState state,
+            Func<DbContext, string[], EntityState, CancellationToken, Task<Action<IMappingOperationOptions>>> opts,
+            string[] properties,
+            CancellationToken token)
+        {
+            try
+            {
+                return mapper.Map<string[], T>(
+                    source: properties,
+                    opts: await opts(context, properties, state, token).ConfigureAwait(false));
+            }
+            catch (AutoMapperMappingException e)
+            {
+                logger.LogError(
+                    exception: e,
+                    message: "Error mapping values {@record} to type {@type}",
+                    args: new object[] { properties, typeof(T).Name });
+                throw;
+            }
         }
     }
 }

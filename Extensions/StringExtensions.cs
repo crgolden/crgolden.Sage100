@@ -1,5 +1,7 @@
 ﻿namespace Clarity.Sage
 {
+    using System;
+
     public static class StringExtensions
     {
         public static string ToNonEmptyStringOrNull(this string value)
@@ -20,6 +22,24 @@
         public static char? ToNullableChar(this string value)
         {
             return char.TryParse(value, out var retVal) ? (char?)retVal : null;
+        }
+
+        public static bool ToBool(this string value)
+        {
+            return value == "Y";
+        }
+
+        public static bool? ToNullableBool(this string value)
+        {
+            switch (value?.ToUpperInvariant())
+            {
+                case "Y":
+                    return true;
+                case "N":
+                    return false;
+                default:
+                    return null;
+            }
         }
     }
 }

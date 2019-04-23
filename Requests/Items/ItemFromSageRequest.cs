@@ -5,7 +5,7 @@
     public abstract class ItemFromSageRequest<T> : RecordFromSageRequest<T>
         where T : Item
     {
-        private static readonly string _defaultFilter = $"ItemType$=\"{(int)ItemTypes.RegularItem}\"";
+        protected static readonly string RegularItemsFilter = $"ItemType$=\"{(int)ItemTypes.RegularItem}\"";
 
         protected ItemFromSageRequest(
             DateTime? compareDate,
@@ -21,7 +21,7 @@
                 keyColumn: "ItemCode$",
                 descColumn: descColumn,
                 defaultDescColumn: defaultDescColumn,
-                filter: !string.IsNullOrEmpty(filter) ? filter : _defaultFilter,
+                filter: filter,
                 begin: begin,
                 end: end)
         {

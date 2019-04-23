@@ -1,6 +1,8 @@
 ﻿namespace Clarity.Sage
 {
-    public abstract class Record
+    using Clarity.Abstractions;
+
+    public abstract class Record : Entity
     {
         /// <summary>
         /// Creation Date

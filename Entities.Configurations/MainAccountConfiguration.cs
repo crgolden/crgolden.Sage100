@@ -7,6 +7,7 @@
     {
         public override void Configure(EntityTypeBuilder<T> mainAccount)
         {
+            base.Configure(mainAccount);
             mainAccount.HasIndex(e => new { e.SegmentNo, e.MainAccountCode }).IsUnique();
             mainAccount.Property(e => e.SegmentNo).HasMaxLength(2).IsRequired();
             mainAccount.Property(e => e.MainAccountCode).HasMaxLength(15).IsRequired();
@@ -25,7 +26,6 @@
             mainAccount.Property(e => e.RollupCode3).HasMaxLength(20);
             mainAccount.Property(e => e.RollupCode4).HasMaxLength(20);
             mainAccount.Property(e => e.CompanyCode).HasMaxLength(3).IsRequired();
-            base.Configure(mainAccount);
             mainAccount.ToTable("MainAccounts");
         }
     }

@@ -7,6 +7,7 @@
     {
         public override void Configure(EntityTypeBuilder<T> account)
         {
+            base.Configure(account);
             account.HasIndex(e => e.AccountKey).IsUnique();
             account.Property(e => e.AccountKey).HasMaxLength(9);
             account.Property(e => e.AccountDesc).HasMaxLength(50);
@@ -26,7 +27,6 @@
             account.Property(e => e.AccountGroup).HasMaxLength(15).IsRequired();
             account.Property(e => e.AccountCategory);
             account.Property(e => e.CompanyCode).HasMaxLength(3).IsRequired();
-            base.Configure(account);
             account.ToTable("Accounts");
         }
     }

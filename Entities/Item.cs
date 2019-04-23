@@ -34,28 +34,28 @@
         /// Valid: Y, N
         /// Notes: Always "N" for Item Type "1"
         /// </summary>
-        public char UseInAR { get; set; }
+        public bool UseInAR { get; set; }
 
         /// <summary>
         /// Use In SO
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public char UseInSO { get; set; }
+        public bool UseInSO { get; set; }
 
         /// <summary>
         /// Use In PO
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public char UseInPO { get; set; }
+        public bool UseInPO { get; set; }
 
         /// <summary>
         /// Use In BM
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public char UseInBM { get; set; }
+        public bool UseInBM { get; set; }
 
         /// <summary>
         /// Calculate Commission
@@ -72,28 +72,28 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public char DropShip { get; set; }
+        public bool DropShip { get; set; }
 
         /// <summary>
         /// eBusiness Manager Enabled
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public char EBMEnabled { get; set; }
+        public bool EBMEnabled { get; set; }
 
         /// <summary>
         /// Allow Back Orders
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public char AllowBackOrders { get; set; }
+        public bool AllowBackOrders { get; set; }
 
         /// <summary>
         /// Allow Returns
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public char AllowReturns { get; set; }
+        public bool AllowReturns { get; set; }
 
         /// <summary>
         /// Price Code
@@ -105,7 +105,7 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public char AllowTradeDiscount { get; set; }
+        public bool AllowTradeDiscount { get; set; }
 
         /// <summary>
         /// Print Receipt Labels
@@ -120,21 +120,21 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public char AllocateLandedCost { get; set; }
+        public bool AllocateLandedCost { get; set; }
 
         /// <summary>
         /// Inactive Item
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public char InactiveItem { get; set; }
+        public bool InactiveItem { get; set; }
 
         /// <summary>
         /// Confirm Cost Increase in Receip
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public char ConfirmCostIncrInRcptOfGoods { get; set; }
+        public bool ConfirmCostIncrInRcptOfGoods { get; set; }
 
         /// <summary>
         /// Warranty Code
@@ -165,7 +165,7 @@
         /// Valid: Y, N
         /// Notes: Used by AR Sales Codes
         /// </summary>
-        public char PostToGLByDivision { get; set; }
+        public bool PostToGLByDivision { get; set; }
 
         /// <summary>
         /// Sales Account Key
@@ -221,7 +221,7 @@
         /// Notes: F = Finished Good, R = Raw Material,
         /// D = Discontinued, K = Kit, Space = Blank
         /// </summary>
-        public char ProductType { get; set; }
+        public char? ProductType { get; set; }
 
         /// <summary>
         /// Valuation
@@ -230,7 +230,7 @@
         /// Notes: 1 = Standard, 2 = Average, 3 = Fifo, 4 = Lifo,
         /// 5 = Lot, 6 = Serial, Space = Blank
         /// </summary>
-        public char Valuation { get; set; }
+        public char? Valuation { get; set; }
 
         /// <summary>
         /// Default Warehouse Code
@@ -383,7 +383,7 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public char PlannedByMRP { get; set; }
+        public bool PlannedByMRP { get; set; }
 
         /// <summary>
         /// Vendor Item Code
@@ -395,7 +395,7 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public char SetupCharge { get; set; }
+        public bool SetupCharge { get; set; }
 
         /// <summary>
         /// Attachment File Name
