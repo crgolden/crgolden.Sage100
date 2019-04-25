@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sage.Enums", "Enums\Sage.En
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sage.Entities", "Entities\Sage.Entities.csproj", "{2D9D14F3-A951-401F-A2BF-1AFA1ED8C391}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sage.Boi", "Boi\Sage.Boi.csproj", "{3D4CF54D-67BD-4969-9619-090B0FD5E479}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sage.Services", "Services\Sage.Services.csproj", "{3D4CF54D-67BD-4969-9619-090B0FD5E479}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sage.Entities.Configurations", "Entities.Configurations\Sage.Entities.Configurations.csproj", "{DBB61C6D-3827-49FC-8E32-49F4354257FE}"
 EndProject

@@ -88,7 +88,7 @@
         };
 
         protected new Func<
-            DispatchObject,
+            SageBoiService,
             DbContext,
             IMapper,
             ILogger,
@@ -107,7 +107,7 @@
             > Selector => (d, c, m, l, r, s, lc, o, t) => d.GetHeader<THeader, TLine>(c, m, l, s, r, lc, o, t, SetLines);
 
         protected abstract Func<
-            DispatchObject,
+            SageBoiService,
             THeader,
             DbContext,
             IMapper,

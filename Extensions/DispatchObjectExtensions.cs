@@ -12,9 +12,9 @@
 
     public static class DispatchObjectExtensions
     {
-        public static DispatchObject GetBusObj(
-            this DispatchObject provideX,
-            DispatchObject session,
+        public static SageBoiService GetBusObj(
+            this SageBoiService provideX,
+            SageBoiService session,
             string moduleName,
             string programName,
             string busObjName)
@@ -23,7 +23,7 @@
             session.InvokeMethod("nSetModule", moduleName);
             var taskID = (int)session.InvokeMethod("nLookupTask", programName);
             session.InvokeMethod("nSetProgram", taskID);
-            return new DispatchObject(provideX.InvokeMethod("NewObject", new object[]
+            return new SageBoiService(provideX.InvokeMethod("NewObject", new object[]
             {
                 busObjName,
                 session.GetObject()
@@ -31,10 +31,10 @@
         }
 
         public static async Task<Dictionary<EntityState, T[]>> GetGroupedRecords<T>(
-            this DispatchObject busObj,
+            this SageBoiService busObj,
             DateTime? compareDate,
             DbContext context,
-            Func<DispatchObject, string, EntityState, CancellationToken, Task<T>> selector,
+            Func<SageBoiService, string, EntityState, CancellationToken, Task<T>> selector,
             string groupedKeysDescColumn,
             string recordsDescColumn,
             string keyColumn,
@@ -73,7 +73,7 @@
         }
 
         public static async Task<T> GetRecord<T>(
-            this DispatchObject busObj,
+            this SageBoiService busObj,
             DbContext context,
             IMapper mapper,
             ILogger logger,
@@ -101,7 +101,7 @@
         }
 
         public static async Task<THeader> GetHeader<THeader, TLine>(
-            this DispatchObject busObj,
+            this SageBoiService busObj,
             DbContext context,
             IMapper mapper,
             ILogger logger,
@@ -111,7 +111,7 @@
             Func<DbContext, string[], EntityState, CancellationToken, Task<Action<IMappingOperationOptions>>>[] opts,
             CancellationToken token,
             Func<
-                DispatchObject,
+                SageBoiService,
                 THeader,
                 DbContext,
                 IMapper,
@@ -140,7 +140,7 @@
             if (header.Equals(default(THeader))) return default;
             var lines = busObj.GetProperty("oLines");
             if (lines == null) return header;
-            using (var oLines = new DispatchObject(lines))
+            using (var oLines = new SageBoiService(lines))
             {
                 oLines.InvokeMethod("nMoveFirst");
                 await setLines(
@@ -159,7 +159,7 @@
         }
 
         private static Dictionary<EntityState, string[]> GetGroupedKeys<T>(
-            this DispatchObject busObj,
+            this SageBoiService busObj,
             DateTime? compareDate,
             string descColumn,
             string keyColumn,
@@ -199,7 +199,7 @@
         }
 
         public static async Task SetInvoiceLines<THeader, TLine>(
-            this DispatchObject busObj,
+            this SageBoiService busObj,
             THeader invoice,
             DbContext context,
             IMapper mapper,
@@ -263,7 +263,7 @@
         }
 
         public static async Task SetOrderLines<THeader, TLine>(
-            this DispatchObject busObj,
+            this SageBoiService busObj,
             THeader order,
             DbContext context,
             IMapper mapper,
@@ -307,7 +307,7 @@
         }
 
         private static async Task<TLine> GetLine<TLine>(
-            this DispatchObject busObj,
+            this SageBoiService busObj,
             DbContext context,
             IMapper mapper,
             ILogger logger,
@@ -344,8 +344,8 @@
         }
 
         private static async Task<T[]> GetRecords<T>(
-            this DispatchObject busObj,
-            Func<DispatchObject, string, EntityState, CancellationToken, Task<T>> selector,
+            this SageBoiService busObj,
+            Func<SageBoiService, string, EntityState, CancellationToken, Task<T>> selector,
             string descColumn,
             string keyColumn,
             EntityState state,
@@ -385,8 +385,8 @@
         }
 
         private static async Task<IEnumerable<T>> GetRecords<T>(
-            this DispatchObject busObj,
-            Func<DispatchObject, string, EntityState, CancellationToken, Task<T>> selector,
+            this SageBoiService busObj,
+            Func<SageBoiService, string, EntityState, CancellationToken, Task<T>> selector,
             string descColumn,
             string keyColumn,
             EntityState state,

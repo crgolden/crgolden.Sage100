@@ -26,7 +26,7 @@
         };
 
         protected override Func<
-            DispatchObject,
+            SageBoiService,
             THeader,
             DbContext,
             IMapper,

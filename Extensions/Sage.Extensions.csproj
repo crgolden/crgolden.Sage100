@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Boi\Sage.Boi.csproj" />
+    <ProjectReference Include="..\Services\Sage.Services.csproj" />
     <ProjectReference Include="..\Entities\Sage.Entities.csproj" />
   </ItemGroup>
 
