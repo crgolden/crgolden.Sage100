@@ -1,0 +1,134 @@
+﻿namespace Clarity.Sage
+{
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    public abstract class InvoiceHeaderConfiguration<THeader, TLine> : RecordConfiguration<THeader>
+        where THeader : InvoiceHeader<TLine>
+        where TLine : InvoiceDetail
+    {
+        public override void Configure(EntityTypeBuilder<THeader> invoiceHeader)
+        {
+            base.Configure(invoiceHeader);
+            invoiceHeader.HasIndex(e => e.InvoiceNo);
+            invoiceHeader.Property(e => e.InvoiceNo).HasMaxLength(7);
+            invoiceHeader.Property(e => e.InvoiceDate).HasMaxLength(8);
+            invoiceHeader.Property(e => e.InvoiceType).HasMaxLength(2);
+            invoiceHeader.Property(e => e.SalesOrderNo).HasMaxLength(7);
+            invoiceHeader.Property(e => e.OrderType);
+            invoiceHeader.Property(e => e.OrderStatus);
+            invoiceHeader.Property(e => e.OrderDate).HasMaxLength(8);
+            invoiceHeader.Property(e => e.ARDivisionNo).HasMaxLength(2).IsRequired();
+            invoiceHeader.Property(e => e.CustomerNo).HasMaxLength(20).IsRequired();
+            invoiceHeader.Property(e => e.BillToDivisionNo).HasMaxLength(2);
+            invoiceHeader.Property(e => e.BillToCustomerNo).HasMaxLength(20);
+            invoiceHeader.Property(e => e.BillToName).HasMaxLength(30);
+            invoiceHeader.Property(e => e.BillToAddress1).HasMaxLength(30);
+            invoiceHeader.Property(e => e.BillToAddress2).HasMaxLength(30);
+            invoiceHeader.Property(e => e.BillToAddress3).HasMaxLength(30);
+            invoiceHeader.Property(e => e.BillToCity).HasMaxLength(20);
+            invoiceHeader.Property(e => e.BillToState).HasMaxLength(2);
+            invoiceHeader.Property(e => e.BillToZipCode).HasMaxLength(10);
+            invoiceHeader.Property(e => e.BillToCountryCode).HasMaxLength(3);
+            invoiceHeader.Property(e => e.ShipToCode).HasMaxLength(4);
+            invoiceHeader.Property(e => e.ShipToName).HasMaxLength(30);
+            invoiceHeader.Property(e => e.ShipToAddress1).HasMaxLength(30);
+            invoiceHeader.Property(e => e.ShipToAddress2).HasMaxLength(30);
+            invoiceHeader.Property(e => e.ShipToAddress3).HasMaxLength(30);
+            invoiceHeader.Property(e => e.ShipToCity).HasMaxLength(20);
+            invoiceHeader.Property(e => e.ShipToState).HasMaxLength(2);
+            invoiceHeader.Property(e => e.ShipToZipCode).HasMaxLength(10);
+            invoiceHeader.Property(e => e.ShipToCountryCode).HasMaxLength(3);
+            invoiceHeader.Property(e => e.ShipDate).HasMaxLength(8);
+            invoiceHeader.Property(e => e.ShipVia).HasMaxLength(15);
+            invoiceHeader.Property(e => e.ShipZone).HasMaxLength(5);
+            invoiceHeader.Property(e => e.ShipZoneActual).HasMaxLength(5);
+            invoiceHeader.Property(e => e.ShipWeight).HasMaxLength(5);
+            invoiceHeader.Property(e => e.CustomerPONo).HasMaxLength(15);
+            invoiceHeader.Property(e => e.FOB).HasMaxLength(15);
+            invoiceHeader.Property(e => e.WarehouseCode).HasMaxLength(3);
+            invoiceHeader.Property(e => e.ConfirmTo).HasMaxLength(30);
+            invoiceHeader.Property(e => e.Comment).HasMaxLength(30);
+            invoiceHeader.Property(e => e.TaxSchedule).HasMaxLength(9);
+            invoiceHeader.Property(e => e.TermsCode).HasMaxLength(2);
+            invoiceHeader.Property(e => e.TaxExemptNo).HasMaxLength(15);
+            invoiceHeader.Property(e => e.PrintInvoice);
+            invoiceHeader.Property(e => e.InvoicePrinted);
+            invoiceHeader.Property(e => e.AcceptCashOnly);
+            invoiceHeader.Property(e => e.CustomerType).HasMaxLength(4);
+            invoiceHeader.Property(e => e.ResidentialAddress);
+            invoiceHeader.Property(e => e.InvalidTaxCalc);
+            invoiceHeader.Property(e => e.FreightCalculationMethod);
+            invoiceHeader.Property(e => e.CheckNoForDeposit).HasMaxLength(10);
+            invoiceHeader.Property(e => e.ApplyToInvoiceNo).HasMaxLength(7);
+            invoiceHeader.Property(e => e.LotSerialLinesExist);
+            invoiceHeader.Property(e => e.SalespersonDivisionNo).HasMaxLength(2);
+            invoiceHeader.Property(e => e.SalespersonNo).HasMaxLength(4);
+            invoiceHeader.Property(e => e.SplitCommissions);
+            invoiceHeader.Property(e => e.SalespersonDivisionNo2).HasMaxLength(2);
+            invoiceHeader.Property(e => e.SalespersonNo2).HasMaxLength(4);
+            invoiceHeader.Property(e => e.SalespersonDivisionNo3).HasMaxLength(2);
+            invoiceHeader.Property(e => e.SalespersonNo3).HasMaxLength(4);
+            invoiceHeader.Property(e => e.SalespersonDivisionNo4).HasMaxLength(2);
+            invoiceHeader.Property(e => e.SalespersonNo4).HasMaxLength(4);
+            invoiceHeader.Property(e => e.SalespersonDivisionNo5).HasMaxLength(2);
+            invoiceHeader.Property(e => e.SalespersonNo5).HasMaxLength(4);
+            invoiceHeader.Property(e => e.InvoiceDueDate).HasMaxLength(8);
+            invoiceHeader.Property(e => e.DiscountDueDate).HasMaxLength(8);
+            invoiceHeader.Property(e => e.BatchNo).HasMaxLength(5);
+            invoiceHeader.Property(e => e.EBMSubmissionType);
+            invoiceHeader.Property(e => e.EBMUserIDSubmittingThisOrder).HasMaxLength(15);
+            invoiceHeader.Property(e => e.EBMUserType);
+            invoiceHeader.Property(e => e.EMailUpdateFlagForRestart);
+            invoiceHeader.Property(e => e.FaxNo).HasMaxLength(17);
+            invoiceHeader.Property(e => e.BatchFax);
+            invoiceHeader.Property(e => e.BatchEmail);
+            invoiceHeader.Property(e => e.EmailAddress).HasMaxLength(250);
+            invoiceHeader.Property(e => e.PaymentType).HasMaxLength(5);
+            invoiceHeader.Property(e => e.OtherPaymentTypeRefNo).HasMaxLength(24);
+            invoiceHeader.Property(e => e.PaymentTypeCategory);
+            invoiceHeader.Property(e => e.OrderChangedInShipping);
+            invoiceHeader.Property(e => e.LinesChangedInShipping);
+            invoiceHeader.Property(e => e.ShipperID).HasMaxLength(3);
+            invoiceHeader.Property(e => e.ShipStatus);
+            invoiceHeader.Property(e => e.StarshipFreightUsed);
+            invoiceHeader.Property(e => e.StarshipRecordsCreated);
+            invoiceHeader.Property(e => e.JobNo).HasMaxLength(7);
+            invoiceHeader.Property(e => e.RMANo).HasMaxLength(7);
+            invoiceHeader.Property(e => e.CRMUserID).HasMaxLength(11);
+            invoiceHeader.Property(e => e.CRMCompanyID).HasMaxLength(11);
+            invoiceHeader.Property(e => e.CRMPersonID).HasMaxLength(11);
+            invoiceHeader.Property(e => e.CRMOpportunityID).HasMaxLength(11);
+            invoiceHeader.Property(e => e.InvalidWarrantyCode);
+            invoiceHeader.Property(e => e.TaxableSubjectToDiscount).HasColumnType("decimal(13,2)");
+            invoiceHeader.Property(e => e.NonTaxableSubjectToDiscount).HasColumnType("decimal(13,2)");
+            invoiceHeader.Property(e => e.TaxSubjToDiscPrcntOfTotSubjTo).HasColumnType("decimal(7,2)");
+            invoiceHeader.Property(e => e.DiscountRate).HasColumnType("decimal(8,3)");
+            invoiceHeader.Property(e => e.TaxableAmt).HasColumnType("decimal(13,2)");
+            invoiceHeader.Property(e => e.NonTaxableAmt).HasColumnType("decimal(13,2)");
+            invoiceHeader.Property(e => e.SalesTaxAmt).HasColumnType("decimal(12,2)");
+            invoiceHeader.Property(e => e.DiscountAmt).HasColumnType("decimal(12,2)");
+            invoiceHeader.Property(e => e.RetentionAmt).HasColumnType("decimal(13,2)");
+            invoiceHeader.Property(e => e.TotalSubjectToComm).HasColumnType("decimal(13,2)");
+            invoiceHeader.Property(e => e.CommissionRate).HasColumnType("decimal(9,3)");
+            invoiceHeader.Property(e => e.CommissionAmt).HasColumnType("decimal(12,2)");
+            invoiceHeader.Property(e => e.SplitCommRate2).HasColumnType("decimal(9,3)");
+            invoiceHeader.Property(e => e.SplitCommRate3).HasColumnType("decimal(9,3)");
+            invoiceHeader.Property(e => e.SplitCommRate4).HasColumnType("decimal(9,3)");
+            invoiceHeader.Property(e => e.SplitCommRate5).HasColumnType("decimal(9,3)");
+            invoiceHeader.Property(e => e.OverrideCommAmt).HasColumnType("decimal(12,2)");
+            invoiceHeader.Property(e => e.FreightAmt).HasColumnType("decimal(12,2)");
+            invoiceHeader.Property(e => e.CostOfGoodsSoldAmt).HasColumnType("decimal(13,2)");
+            invoiceHeader.Property(e => e.CostOfGoodsSoldSubjToComm).HasColumnType("decimal(13,2)");
+            invoiceHeader.Property(e => e.DepositAmt).HasColumnType("decimal(13,2)");
+            invoiceHeader.Property(e => e.Weight).HasColumnType("decimal(12,2)");
+            invoiceHeader.Property(e => e.SIShippedLinesCOGS).HasColumnType("decimal(13,2)");
+            invoiceHeader.Property(e => e.NumberOfCODLabels);
+            invoiceHeader.Property(e => e.NumberOfBackOrderLines);
+            invoiceHeader.Property(e => e.NumberOfShippingLabels);
+            invoiceHeader.Property(e => e.LastNoOfShippingLabels);
+            invoiceHeader.Property(e => e.NumberofPackages);
+            invoiceHeader.ToTable("InvoiceHeaders");
+        }
+    }
+}

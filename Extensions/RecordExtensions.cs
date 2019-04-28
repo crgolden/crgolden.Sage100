@@ -20,7 +20,7 @@
             if (entityType.BaseType.GenericTypeArguments.Length == 1)
             {
                 var genericType = entityType.BaseType.GenericTypeArguments[0];
-                if (genericType.IsSubclassOf(typeof(OrderLine)))
+                if (genericType.IsSubclassOf(typeof(SalesOrderDetail)))
                 {
                     return await ((Task<T[]>)typeof(RecordExtensions)
                         .GetMethod(
@@ -31,7 +31,7 @@
                         .ConfigureAwait(false);
                 }
 
-                if (genericType.IsSubclassOf(typeof(InvoiceLine)))
+                if (genericType.IsSubclassOf(typeof(InvoiceDetail)))
                 {
                     var method = typeof(RecordExtensions).GetMethod(
                         name: nameof(ProcessInvoices),
@@ -48,8 +48,8 @@
             THeader[] headers,
             DbContext context,
             CancellationToken token)
-            where THeader : Order<TLine>
-            where TLine : OrderLine
+            where THeader : SalesOrderHeader<TLine>
+            where TLine : SalesOrderDetail
         {
             var orders = headers.Where(x => string.IsNullOrEmpty(x.CurrentInvoiceNo)).ToArray();
             var invoices = headers.Where(x => !string.IsNullOrEmpty(x.CurrentInvoiceNo)).ToArray();
@@ -74,8 +74,8 @@
         }
 
         private static THeader[] ProcessInvoices<THeader, TLine>(THeader[] headers)
-            where THeader : Invoice<TLine>
-            where TLine : InvoiceLine
+            where THeader : InvoiceHeader<TLine>
+            where TLine : InvoiceDetail
         {
             foreach (var invoice in headers)
             {

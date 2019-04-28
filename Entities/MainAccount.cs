@@ -10,7 +10,7 @@
         /// FmtType: ZEROFILL
         /// Notes: Validated against GL_AccountStructure
         /// </summary>
-        public string SegmentNo { get; set; }
+        public string SegmentNo { get; set; } = "01";
 
         /// <summary>
         /// Main Account Code
@@ -46,7 +46,7 @@
         /// Valid: A, I, D
         /// Notes: A = Active *, I = Inactive, D = Deleted
         /// </summary>
-        public char Status { get; set; }
+        public char Status { get; set; } = 'A';
 
         /// <summary>
         /// Clear Balance
@@ -54,7 +54,7 @@
         /// Valid: Y, N
         /// Notes: Y = Year end, N = Never *
         /// </summary>
-        public bool ClearBalance { get; set; }
+        public char ClearBalance { get; set; } = 'N';
 
         /// <summary>
         /// Account Group
@@ -83,7 +83,7 @@
         /// Valid: C, F, N, I, O
         /// Notes: C = Cash, F = Financing, I = Investment, N = None *, O = Operations
         /// </summary>
-        public char CashFlowsType { get; set; }
+        public char CashFlowsType { get; set; } = 'N';
 
         /// <summary>
         /// Rollup Code 1

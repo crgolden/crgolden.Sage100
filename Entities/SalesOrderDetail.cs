@@ -1,7 +1,14 @@
 ﻿namespace Clarity.Sage
 {
-    public abstract class Line
+    public abstract class SalesOrderDetail
     {
+        /// <summary>
+        /// Sales Order Number
+        /// Read Only: Y
+        /// FmtType: CHARNUM
+        /// </summary>
+        public string SalesOrderNo { get; set; }
+
         /// <summary>
         /// Line Key
         /// Read Only: Y
@@ -29,7 +36,7 @@
         /// Notes: 1 = Regular Item, 2 = Special Item, 3 = Charge Item,
         /// 4 = Comment Item, 5 = Miscellaneous Item
         /// </summary>
-        public ItemTypes? ItemType { get; set; }
+        public ItemTypes ItemType { get; set; }
 
         /// <summary>
         /// Item Code Description
@@ -47,21 +54,21 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? Discount { get; set; }
+        public bool? Discount { get; set; } = false;
 
         /// <summary>
         /// Commissionable
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? Commissionable { get; set; }
+        public bool? Commissionable { get; set; } = false;
 
         /// <summary>
         /// Subject To Exemption
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? SubjectToExemption { get; set; }
+        public bool? SubjectToExemption { get; set; } = false;
 
         /// <summary>
         /// Warehouse Code
@@ -70,18 +77,25 @@
         public string WarehouseCode { get; set; }
 
         /// <summary>
+        /// Valuation
+        /// Valid: 1, 2, 3, 4, 5, 6
+        /// Notes: 1 = Standard, 2 = Average, 3 = Fifo, 4 = Lifo,
+        /// 5 = Lot, 6 = Serial
+        /// </summary>
+        public Valuations? Valuation { get; set; }
+
+        /// <summary>
         /// Price Level
         /// DepVal: REQUIRED
         /// </summary>
         public char? PriceLevel { get; set; }
 
         /// <summary>
-        /// Valuation
-        /// Valid: 1, 2, 3, 4, 5, 6
-        /// Notes: 1 = Standard, 2 = Average, 3 = Fifo, 4 = Lifo,
-        /// 5 = Lot, 6 = Serial
+        /// Master Order Line Key
+        /// Mask: 000000
+        /// FmtType: ZEROFILL
         /// </summary>
-        public char? Valuation { get; set; }
+        public string MasterOrderLineKey { get; set; }
 
         /// <summary>
         /// Unit Of Measure
@@ -93,14 +107,21 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? DropShip { get; set; }
+        public bool? DropShip { get; set; } = false;
 
         /// <summary>
         /// Lot/Serial Fully Distributed
         /// DfltVal: Y
         /// Valid: Y, N
         /// </summary>
-        public bool? LotSerialFullyDistributed { get; set; }
+        public bool? LotSerialFullyDistributed { get; set; } = true;
+
+        /// <summary>
+        /// Print Drop Shipment
+        /// DfltVal: N
+        /// Valid: Y, N
+        /// </summary>
+        public bool? PrintDropShipment { get; set; } = false;
 
         /// Sales Kit Line Key
         /// Mask: 000000
@@ -126,21 +147,21 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? PriceOverridden { get; set; }
+        public bool? PriceOverridden { get; set; } = false;
 
         /// <summary>
         /// Exploded Kit Item
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? ExplodedKitItem { get; set; }
+        public bool? ExplodedKitItem { get; set; } = false;
 
         /// <summary>
         /// Standard/Kit Bill
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? StandardKitBill { get; set; }
+        public bool? StandardKitBill { get; set; } = false;
 
         /// <summary>
         /// Bill Revision Code
@@ -216,7 +237,7 @@
         /// Valid: Y, N
         /// Notes: Kit Bckord = 0, Comp Bckord > 0 Flg = Y
         /// </summary>
-        public bool? BackorderKitCompLine { get; set; }
+        public bool? BackorderKitCompLine { get; set; } = false;
 
         /// <summary>
         /// Skip Printing Of This Component
@@ -224,17 +245,17 @@
         /// Valid: Y, N
         /// Notes: Line In S/O
         /// </summary>
-        public bool? SkipPrintCompLine { get; set; }
+        public bool? SkipPrintCompLine { get; set; } = false;
+
+        /// <summary>
+        /// Promise Date
+        /// </summary>
+        public string PromiseDate { get; set; }
 
         /// <summary>
         /// Alias Item Number
         /// </summary>
         public string AliasItemNo { get; set; }
-
-        /// <summary>
-        /// Tax Class
-        /// </summary>
-        public string TaxClass { get; set; }
 
         /// <summary>
         /// Sales Order History Detail Sequ
@@ -244,12 +265,17 @@
         public string SOHistoryDetlSeqNo { get; set; }
 
         /// <summary>
+        /// Tax Class
+        /// </summary>
+        public string TaxClass { get; set; }
+
+        /// <summary>
         /// Customer Action
         /// DfltVal: N
         /// Valid: N, C, P, R
         /// Notes: N = None, C = Credit, P = rePlacement, R = Repair
         /// </summary>
-        public char? CustomerAction { get; set; }
+        public char? CustomerAction { get; set; } = 'N';
 
         /// <summary>
         /// Item Action
@@ -257,7 +283,7 @@
         /// Valid: N, S, P, R
         /// Notes: N = None, S = Stock, P = scraP, R = Repair
         /// </summary>
-        public char? ItemAction { get; set; }
+        public char? ItemAction { get; set; } = 'N';
 
         /// <summary>
         /// Warranty Code
@@ -275,14 +301,14 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? ExpirationOverridden { get; set; }
+        public bool? ExpirationOverridden { get; set; } = false;
 
         /// <summary>
         /// Cost Overridden
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? CostOverridden { get; set; }
+        public bool? CostOverridden { get; set; } = false;
 
         /// <summary>
         /// Cost Code
@@ -303,9 +329,29 @@
         public string CommentText { get; set; }
 
         /// <summary>
-        /// Promise Date
+        /// AP Division Number
+        /// Mask: 00
+        /// DepVal: REQUIRED
         /// </summary>
-        public string PromiseDate { get; set; }
+        public string APDivisionNo { get; set; }
+
+        /// <summary>
+        /// Vendor Number
+        /// FmtType: MASTERNUM
+        /// DepVal: REQUIRED
+        /// </summary>
+        public string VendorNo { get; set; }
+
+        /// <summary>
+        /// Purchase Order Number
+        /// FmtType: CHARNUM
+        /// </summary>
+        public string PurchaseOrderNo { get; set; }
+
+        /// <summary>
+        /// Purchase Order Required Date
+        /// </summary>
+        public string PurchaseOrderRequiredDate { get; set; }
 
         /// <summary>
         /// Quantity Ordered
@@ -324,6 +370,30 @@
         /// Mask: ##,###,###.000000-
         /// </summary>
         public decimal? QuantityBackordered { get; set; }
+
+        /// <summary>
+        /// Master Original Quantity
+        /// Mask: ##,###,###.000000-
+        /// </summary>
+        public decimal? MasterOriginalQty { get; set; }
+
+        /// <summary>
+        /// Master Quantity Balance
+        /// Mask: ##,###,###.000000-
+        /// </summary>
+        public decimal? MasterQtyBalance { get; set; }
+
+        /// <summary>
+        /// Master Quantity Ordered To Date
+        /// Mask: ##,###,###.000000-
+        /// </summary>
+        public decimal? MasterQtyOrderedToDate { get; set; }
+
+        /// <summary>
+        /// Repeating Quantity Shipped To D
+        /// Mask: ##,###,###.000000-
+        /// </summary>
+        public decimal? RepeatingQtyShippedToDate { get; set; }
 
         /// <summary>
         /// Unit Price
@@ -362,31 +432,6 @@
         public decimal? LineDiscountPercent { get; set; }
 
         /// <summary>
-        /// AP Division Number
-        /// Mask: 00
-        /// DepVal: REQUIRED
-        /// </summary>
-        public string APDivisionNo { get; set; }
-
-        /// <summary>
-        /// Vendor Number
-        /// FmtType: MASTERNUM
-        /// DepVal: REQUIRED
-        /// </summary>
-        public string VendorNo { get; set; }
-
-        /// <summary>
-        /// Purchase Order Number
-        /// FmtType: CHARNUM
-        /// </summary>
-        public string PurchaseOrderNo { get; set; }
-
-        /// <summary>
-        /// Purchase Order Required Date
-        /// </summary>
-        public string PurchaseOrderRequiredDate { get; set; }
-
-        /// <summary>
         /// Line Weight
         /// Read Only: Y
         /// Mask: ##,###,###.00-
@@ -415,7 +460,7 @@
         /// Notes: Always false (N); Per SPS, when true this
         /// indicates sales tax included in ExtendedItemAmount
         /// </summary>
-        public bool? NetGrossIndicator { get; set; }
+        public bool? NetGrossIndicator { get; set; } = false;
 
         /// <summary>
         /// Debit Credit Indicator
@@ -423,7 +468,7 @@
         /// Valid: D, C
         /// Notes: Per SPS, Always 'C'reditcard
         /// </summary>
-        public char? DebitCreditIndicator { get; set; }
+        public char? DebitCreditIndicator { get; set; } = 'C';
 
         /// <summary>
         /// Tax Amount

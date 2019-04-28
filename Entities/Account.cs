@@ -50,7 +50,7 @@
         /// Valid: A, I, D
         /// Notes: A = Active, I = Inactive, D = Deleted
         /// </summary>
-        public char Status { get; set; }
+        public char Status { get; set; } = 'A';
 
         /// <summary>
         /// Clear Balance
@@ -58,7 +58,7 @@
         /// Valid: Y, N
         /// Notes: Y = Year end, N = Never *
         /// </summary>
-        public char ClearBalance { get; set; }
+        public char ClearBalance { get; set; } = 'N';
 
         /// <summary>
         /// Account Type
@@ -77,7 +77,7 @@
         /// C = Cash, F = Financing, I = Investment,
         /// N = None * , O = Operations
         /// </summary>
-        public char CashFlowsType { get; set; }
+        public char CashFlowsType { get; set; } = 'N';
 
         /// <summary>
         /// Rollup Code 1

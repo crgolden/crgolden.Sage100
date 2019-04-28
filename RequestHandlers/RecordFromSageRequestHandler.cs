@@ -21,7 +21,7 @@
         protected readonly SageOptions SageOptions;
 
         protected virtual Func<
-            SageBoiService,
+            BoiService,
             DbContext,
             IMapper,
             ILogger,
@@ -76,7 +76,7 @@
 
         protected virtual async Task<Dictionary<EntityState, TEntity[]>> GetRecords(
             TRequest request,
-            Func<SageBoiService, string, EntityState, CancellationToken, Task<TEntity>> selector,
+            Func<BoiService, string, EntityState, CancellationToken, Task<TEntity>> selector,
             CancellationToken token)
         {
             using (var provideX = GetProvideX())
@@ -96,16 +96,16 @@
                 token: token).ConfigureAwait(false);
         }
 
-        protected virtual SageBoiService GetProvideX()
+        protected virtual BoiService GetProvideX()
         {
-            var provideX = new SageBoiService("ProvideX.Script");
+            var provideX = new BoiService("ProvideX.Script");
             provideX.InvokeMethod("Init", SageOptions.Path);
             return provideX;
         }
 
-        protected virtual SageBoiService GetSession(SageBoiService provideX)
+        protected virtual BoiService GetSession(BoiService provideX)
         {
-            var session = new SageBoiService(provideX.InvokeMethod("NewObject", "SY_Session"));
+            var session = new BoiService(provideX.InvokeMethod("NewObject", "SY_Session"));
             session.InvokeMethod("nSetUser", SageOptions.Username, SageOptions.Password);
             session.InvokeMethod("nSetCompany", SageOptions.Company);
             return session;

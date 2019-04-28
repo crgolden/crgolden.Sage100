@@ -8,11 +8,11 @@
         public override void Configure(EntityTypeBuilder<T> account)
         {
             base.Configure(account);
-            account.HasIndex(e => e.AccountKey).IsUnique();
+            account.HasIndex(e => e.AccountKey);
             account.Property(e => e.AccountKey).HasMaxLength(9);
             account.Property(e => e.AccountDesc).HasMaxLength(50);
             account.Property(e => e.FormattedAccount).HasMaxLength(41).IsRequired();
-            account.Property(e => e.RawAccount).HasMaxLength(32).IsRequired();
+            account.Property(e => e.RawAccount).HasMaxLength(32);
             account.Property(e => e.MainAccountCode).HasMaxLength(15).IsRequired();
             account.Property(e => e.DateStart).HasMaxLength(8);
             account.Property(e => e.DateEnd).HasMaxLength(8);

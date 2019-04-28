@@ -5,7 +5,7 @@
     using System.Runtime.InteropServices;
 
     // https://sagecity.na.sage.com/support_communities/sage100_erp/f/sage-100-business-object-interface/41828/help-sample-code-c
-    public class SageBoiService : IDisposable
+    public class BoiService : IDisposable
     {
         protected readonly Type Type;
 
@@ -17,42 +17,42 @@
 
         private readonly BindingFlags _setProperty = BindingFlags.Public | BindingFlags.Static | BindingFlags.IgnoreCase | BindingFlags.SetProperty;
 
-        protected SageBoiService()
+        protected BoiService()
         {
         }
 
-        public SageBoiService(string programID)
+        public BoiService(string programID)
         {
             Type = Type.GetTypeFromProgID(programID, true);
             Instance = Activator.CreateInstance(Type);
         }
 
-        public SageBoiService(string programID, string server)
+        public BoiService(string programID, string server)
         {
             Type = Type.GetTypeFromProgID(programID, server, true);
             Instance = Activator.CreateInstance(Type);
         }
 
-        public SageBoiService(Guid classID)
+        public BoiService(Guid classID)
         {
             Type = Type.GetTypeFromCLSID(classID, true);
             Instance = Activator.CreateInstance(Type);
         }
 
-        public SageBoiService(Guid classID, string server)
+        public BoiService(Guid classID, string server)
         {
             Type = Type.GetTypeFromCLSID(classID, server, true);
             Instance = Activator.CreateInstance(Type);
         }
 
-        public SageBoiService(object @object)
+        public BoiService(object @object)
         {
             var typeHandle = Type.GetTypeHandle(@object);
             Type = Type.GetTypeFromHandle(typeHandle);
             Instance = @object;
         }
 
-        ~SageBoiService()
+        ~BoiService()
         {
             Dispose();
         }

@@ -88,7 +88,7 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? EBMEnabled { get; set; }
+        public bool? EBMEnabled { get; set; } = false;
 
         /// <summary>
         /// eBusiness Manager Consumer User
@@ -101,7 +101,7 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? BatchFax { get; set; }
+        public bool? BatchFax { get; set; } = false;
 
         /// <summary>
         /// Default Credit Card Payment Typ
@@ -140,7 +140,7 @@
         /// Mask: 00
         /// FmtType:ZEROFILL
         /// </summary>
-        public string TermsCode { get; set; }
+        public string TermsCode { get; set; } = "00";
 
         /// <summary>
         /// Salesperson Division Number
@@ -232,7 +232,7 @@
         /// Valid: A, I, T
         /// Notes: A = Active, I = Inactive, T = Temporary
         /// </summary>
-        public char CustomerStatus { get; set; }
+        public char CustomerStatus { get; set; } = 'A';
 
         /// <summary>
         /// Inactive Reason Code
@@ -245,27 +245,27 @@
         /// DfltVal: Y
         /// Valid: Y, N
         /// </summary>
-        public bool OpenItemCustomer { get; set; }
+        public bool OpenItemCustomer { get; set; } = true;
 
         /// <summary>
         /// Residential Address
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? ResidentialAddress { get; set; }
+        public bool? ResidentialAddress { get; set; } = false;
 
         /// <summary>
         /// Statement Cycle
         /// DfltVal: M
         /// </summary>
-        public char? StatementCycle { get; set; }
+        public char? StatementCycle { get; set; } = 'M';
 
         /// <summary>
         /// Print Dunning Message On Statem
         /// DfltVal: Y
         /// Valid: Y, N
         /// </summary>
-        public bool? PrintDunningMessage { get; set; }
+        public bool? PrintDunningMessage { get; set; } = true;
 
         /// <summary>
         /// Customer Type
@@ -324,7 +324,7 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? CreditHold { get; set; }
+        public bool? CreditHold { get; set; } = false;
 
         /// <summary>
         /// Primary Ship To Code
@@ -347,14 +347,14 @@
         /// DfltVal: CHECK
         /// Notes: e.g., CASH or AMEX
         /// </summary>
-        public string DefaultPaymentType { get; set; }
+        public string DefaultPaymentType { get; set; } = "CHECK";
 
         /// <summary>
         /// Obsolete 4.30
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? EmailStatements { get; set; }
+        public bool? EmailStatements { get; set; } = false;
 
         /// <summary>
         /// Number Of Invoices To Use In Da
@@ -511,7 +511,7 @@
         /// Use Sage Cloud For Invoice Prin
         /// DfltVal: N
         /// </summary>
-        public bool? UseSageCloudForInvPrinting { get; set; }
+        public bool? UseSageCloudForInvPrinting { get; set; } = false;
 
         public new const string DefaultDesc = Record.DefaultDesc +
             "+\"" + Sep + "\"+" +

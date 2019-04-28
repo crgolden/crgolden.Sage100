@@ -8,7 +8,7 @@
         public override void Configure(EntityTypeBuilder<T> item)
         {
             base.Configure(item);
-            item.HasIndex(e => e.ItemCode).IsUnique();
+            item.HasIndex(e => e.ItemCode);
             item.Property(e => e.ItemCode).HasMaxLength(30);
             item.Property(e => e.ItemType).IsRequired();
             item.Property(e => e.ItemCodeDesc).HasMaxLength(30);

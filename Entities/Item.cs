@@ -34,28 +34,28 @@
         /// Valid: Y, N
         /// Notes: Always "N" for Item Type "1"
         /// </summary>
-        public bool UseInAR { get; set; }
+        public bool UseInAR { get; set; } = false;
 
         /// <summary>
         /// Use In SO
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool UseInSO { get; set; }
+        public bool UseInSO { get; set; } = false;
 
         /// <summary>
         /// Use In PO
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool UseInPO { get; set; }
+        public bool UseInPO { get; set; } = false;
 
         /// <summary>
         /// Use In BM
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool UseInBM { get; set; }
+        public bool UseInBM { get; set; } = false;
 
         /// <summary>
         /// Calculate Commission
@@ -65,35 +65,35 @@
         /// Type 1 valid values are N = No, S = Standard,
         /// P =% of Price, C=% of Cost, G =% of Gross Profit
         /// </summary>
-        public char CalculateCommission { get; set; }
+        public char CalculateCommission { get; set; } = 'N';
 
         /// <summary>
         /// Drop Ship
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool DropShip { get; set; }
+        public bool DropShip { get; set; } = false;
 
         /// <summary>
         /// eBusiness Manager Enabled
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool EBMEnabled { get; set; }
+        public bool EBMEnabled { get; set; } = false;
 
         /// <summary>
         /// Allow Back Orders
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool AllowBackOrders { get; set; }
+        public bool AllowBackOrders { get; set; } = false;
 
         /// <summary>
         /// Allow Returns
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool AllowReturns { get; set; }
+        public bool AllowReturns { get; set; } = false;
 
         /// <summary>
         /// Price Code
@@ -105,7 +105,7 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool AllowTradeDiscount { get; set; }
+        public bool AllowTradeDiscount { get; set; } = false;
 
         /// <summary>
         /// Print Receipt Labels
@@ -113,28 +113,28 @@
         /// Valid: Y, N, I
         /// Notes: Y = Yes, N = No, I = Item
         /// </summary>
-        public char PrintReceiptLabels { get; set; }
+        public char PrintReceiptLabels { get; set; } = 'N';
 
         /// <summary>
         /// Allocate Landed Cost
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool AllocateLandedCost { get; set; }
+        public bool AllocateLandedCost { get; set; } = false;
 
         /// <summary>
         /// Inactive Item
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool InactiveItem { get; set; }
+        public bool InactiveItem { get; set; } = false;
 
         /// <summary>
         /// Confirm Cost Increase in Receip
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool ConfirmCostIncrInRcptOfGoods { get; set; }
+        public bool ConfirmCostIncrInRcptOfGoods { get; set; } = false;
 
         /// <summary>
         /// Warranty Code
@@ -165,7 +165,7 @@
         /// Valid: Y, N
         /// Notes: Used by AR Sales Codes
         /// </summary>
-        public bool PostToGLByDivision { get; set; }
+        public bool PostToGLByDivision { get; set; } = false;
 
         /// <summary>
         /// Sales Account Key
@@ -309,7 +309,7 @@
         /// Valid: D, P, N
         /// Notes: D = Sales Discount, P = Sale Price, N = None
         /// </summary>
-        public char SaleMethod { get; set; }
+        public char SaleMethod { get; set; } = 'N';
 
         /// <summary>
         /// Explode Kit Items
@@ -317,7 +317,7 @@
         /// Valid: A, N, P
         /// Notes: A = Always, N = Never, P = Prompt
         /// </summary>
-        public char ExplodeKitItems { get; set; }
+        public char ExplodeKitItems { get; set; } = 'N';
 
         /// <summary>
         /// Ship Weight
@@ -335,7 +335,7 @@
         /// Valid: N, F, C, P
         /// Notes: N = None, F = Fixed, C = % of Cost, P = % of Price
         /// </summary>
-        public char RestockingMethod { get; set; }
+        public char RestockingMethod { get; set; } = 'N';
 
         /// <summary>
         /// Next Lot/Serial Number
@@ -358,7 +358,7 @@
         /// Valid: B, M, S
         /// Notes: B = Buy, M = Make, S = Subcontract
         /// </summary>
-        public char ProcurementType { get; set; }
+        public char ProcurementType { get; set; } = 'B';
 
         /// <summary>
         /// Planner Code
@@ -383,7 +383,7 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool PlannedByMRP { get; set; }
+        public bool PlannedByMRP { get; set; } = false;
 
         /// <summary>
         /// Vendor Item Code
@@ -395,7 +395,7 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool SetupCharge { get; set; }
+        public bool SetupCharge { get; set; } = false;
 
         /// <summary>
         /// Attachment File Name

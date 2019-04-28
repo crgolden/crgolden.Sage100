@@ -1,14 +1,14 @@
-﻿namespace Clarity.Sage.Invoices
+﻿namespace Clarity.Sage.InvoiceHeaders
 {
     using System;
 
-    public abstract class InvoiceFromSageRequest<THeader, TLine> : RecordFromSageRequest<THeader>
-        where THeader : Invoice<TLine>
-        where TLine : InvoiceLine
+    public abstract class InvoiceHeaderFromSageRequest<THeader, TLine> : RecordFromSageRequest<THeader>
+        where THeader : InvoiceHeader<TLine>
+        where TLine : InvoiceDetail
     {
-        protected InvoiceFromSageRequest(
+        protected InvoiceHeaderFromSageRequest(
             DateTime? compareDate,
-            string descColumn = Invoice<TLine>.DefaultDesc,
+            string descColumn = InvoiceHeader<TLine>.DefaultDesc,
             string defaultDescColumn = Record.DefaultDesc,
             string filter = "",
             string begin = "",

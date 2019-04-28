@@ -8,9 +8,9 @@
         public override void Configure(EntityTypeBuilder<T> mainAccount)
         {
             base.Configure(mainAccount);
-            mainAccount.HasIndex(e => new { e.SegmentNo, e.MainAccountCode }).IsUnique();
+            mainAccount.HasIndex(e => new { e.SegmentNo, e.MainAccountCode });
             mainAccount.Property(e => e.SegmentNo).HasMaxLength(2).IsRequired();
-            mainAccount.Property(e => e.MainAccountCode).HasMaxLength(15).IsRequired();
+            mainAccount.Property(e => e.MainAccountCode).HasMaxLength(15);
             mainAccount.Property(e => e.MainAccountDesc).HasMaxLength(40);
             mainAccount.Property(e => e.MainAccountShortDesc).HasMaxLength(20);
             mainAccount.Property(e => e.DateStart).HasMaxLength(8);

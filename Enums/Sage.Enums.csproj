@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Clarity.Sage</RootNamespace>
     <LangVersion>latest</LangVersion>
-    <PackageId>Clarity.Sage.Enums</PackageId>
+    <PackageId>Clarity.Sage.Enums-alpha.01</PackageId>
     <Version>1.0.0</Version>
     <Company>Clarity</Company>
     <Authors>Chris Golden</Authors>

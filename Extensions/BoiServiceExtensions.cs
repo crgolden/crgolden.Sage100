@@ -10,11 +10,11 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
 
-    public static class DispatchObjectExtensions
+    public static class BoiServiceExtensions
     {
-        public static SageBoiService GetBusObj(
-            this SageBoiService provideX,
-            SageBoiService session,
+        public static BoiService GetBusObj(
+            this BoiService provideX,
+            BoiService session,
             string moduleName,
             string programName,
             string busObjName)
@@ -23,7 +23,7 @@
             session.InvokeMethod("nSetModule", moduleName);
             var taskID = (int)session.InvokeMethod("nLookupTask", programName);
             session.InvokeMethod("nSetProgram", taskID);
-            return new SageBoiService(provideX.InvokeMethod("NewObject", new object[]
+            return new BoiService(provideX.InvokeMethod("NewObject", new object[]
             {
                 busObjName,
                 session.GetObject()
@@ -31,10 +31,10 @@
         }
 
         public static async Task<Dictionary<EntityState, T[]>> GetGroupedRecords<T>(
-            this SageBoiService busObj,
+            this BoiService busObj,
             DateTime? compareDate,
             DbContext context,
-            Func<SageBoiService, string, EntityState, CancellationToken, Task<T>> selector,
+            Func<BoiService, string, EntityState, CancellationToken, Task<T>> selector,
             string groupedKeysDescColumn,
             string recordsDescColumn,
             string keyColumn,
@@ -73,7 +73,7 @@
         }
 
         public static async Task<T> GetRecord<T>(
-            this SageBoiService busObj,
+            this BoiService busObj,
             DbContext context,
             IMapper mapper,
             ILogger logger,
@@ -100,8 +100,8 @@
             return await GetRecord(recordValues).ConfigureAwait(false);
         }
 
-        public static async Task<THeader> GetHeader<THeader, TLine>(
-            this SageBoiService busObj,
+        public static async Task<THeader> GetSalesOrderHeader<THeader, TLine>(
+            this BoiService busObj,
             DbContext context,
             IMapper mapper,
             ILogger logger,
@@ -111,7 +111,7 @@
             Func<DbContext, string[], EntityState, CancellationToken, Task<Action<IMappingOperationOptions>>>[] opts,
             CancellationToken token,
             Func<
-                SageBoiService,
+                BoiService,
                 THeader,
                 DbContext,
                 IMapper,
@@ -126,8 +126,8 @@
                 CancellationToken,
                 Task
             > setLines)
-            where THeader : Header<TLine>
-            where TLine : Line
+            where THeader : SalesOrderHeader<TLine>
+            where TLine : SalesOrderDetail
         {
             var header = await busObj.GetRecord<THeader>(
                 context: context,
@@ -140,7 +140,7 @@
             if (header.Equals(default(THeader))) return default;
             var lines = busObj.GetProperty("oLines");
             if (lines == null) return header;
-            using (var oLines = new SageBoiService(lines))
+            using (var oLines = new BoiService(lines))
             {
                 oLines.InvokeMethod("nMoveFirst");
                 await setLines(
@@ -159,7 +159,7 @@
         }
 
         private static Dictionary<EntityState, string[]> GetGroupedKeys<T>(
-            this SageBoiService busObj,
+            this BoiService busObj,
             DateTime? compareDate,
             string descColumn,
             string keyColumn,
@@ -198,8 +198,8 @@
                 };
         }
 
-        public static async Task SetInvoiceLines<THeader, TLine>(
-            this SageBoiService busObj,
+        public static async Task SetInvoiceHeaderLines<THeader, TLine>(
+            this BoiService busObj,
             THeader invoice,
             DbContext context,
             IMapper mapper,
@@ -214,8 +214,8 @@
                 Task<Action<IMappingOperationOptions>>
                 > opts,
             CancellationToken token)
-            where THeader : Invoice<TLine>
-            where TLine : InvoiceLine
+            where THeader : InvoiceHeader<TLine>
+            where TLine : InvoiceDetail
         {
             var isEof = (int)busObj.GetProperty("nEOF");
             if (isEof == 1) return;
@@ -228,7 +228,7 @@
             {
                 Debug.WriteLine($"InvoiceNo: {value[1]}");
                 busObj.InvokeMethod("nMoveNext");
-                await busObj.SetInvoiceLines<THeader, TLine>(
+                await busObj.SetInvoiceHeaderLines<THeader, TLine>(
                     invoice: invoice,
                     context: context,
                     mapper: mapper,
@@ -251,7 +251,7 @@
                 value: value).ConfigureAwait(false);
             if (line != default && !string.IsNullOrEmpty(line.LineKey)) invoice.Lines.Add(line);
             busObj.InvokeMethod("nMoveNext");
-            await busObj.SetInvoiceLines<THeader, TLine>(
+            await busObj.SetInvoiceHeaderLines<THeader, TLine>(
                 invoice: invoice,
                 context: context,
                 mapper: mapper,
@@ -262,8 +262,8 @@
                 token: token).ConfigureAwait(false);
         }
 
-        public static async Task SetOrderLines<THeader, TLine>(
-            this SageBoiService busObj,
+        public static async Task SetSalesOrderHeaderLines<THeader, TLine>(
+            this BoiService busObj,
             THeader order,
             DbContext context,
             IMapper mapper,
@@ -278,8 +278,8 @@
                 Task<Action<IMappingOperationOptions>>
                 > opts,
             CancellationToken token)
-            where THeader : Order<TLine>
-            where TLine : OrderLine
+            where THeader : SalesOrderHeader<TLine>
+            where TLine : SalesOrderDetail
         {
             var isEof = (int)busObj.GetProperty("nEOF");
             if (isEof == 1) return;
@@ -295,7 +295,7 @@
                 value: new object[2]).ConfigureAwait(false);
             if (line != default && !string.IsNullOrEmpty(line.LineKey)) order.Lines.Add(line);
             busObj.InvokeMethod("nMoveNext");
-            await busObj.SetOrderLines<THeader, TLine>(
+            await busObj.SetSalesOrderHeaderLines<THeader, TLine>(
                 order: order,
                 context: context,
                 mapper: mapper,
@@ -307,7 +307,7 @@
         }
 
         private static async Task<TLine> GetLine<TLine>(
-            this SageBoiService busObj,
+            this BoiService busObj,
             DbContext context,
             IMapper mapper,
             ILogger logger,
@@ -322,7 +322,6 @@
             CancellationToken token,
             string[] lineColumns,
             object[] value)
-            where TLine : Line
         {
             var lineProperties = new string[lineColumns.Length];
             for (var i = 0; i < lineProperties.Length; i++)
@@ -344,8 +343,8 @@
         }
 
         private static async Task<T[]> GetRecords<T>(
-            this SageBoiService busObj,
-            Func<SageBoiService, string, EntityState, CancellationToken, Task<T>> selector,
+            this BoiService busObj,
+            Func<BoiService, string, EntityState, CancellationToken, Task<T>> selector,
             string descColumn,
             string keyColumn,
             EntityState state,
@@ -385,8 +384,8 @@
         }
 
         private static async Task<IEnumerable<T>> GetRecords<T>(
-            this SageBoiService busObj,
-            Func<SageBoiService, string, EntityState, CancellationToken, Task<T>> selector,
+            this BoiService busObj,
+            Func<BoiService, string, EntityState, CancellationToken, Task<T>> selector,
             string descColumn,
             string keyColumn,
             EntityState state,

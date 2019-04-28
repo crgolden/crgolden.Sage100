@@ -8,9 +8,9 @@
         public override void Configure(EntityTypeBuilder<T> customer)
         {
             base.Configure(customer);
-            customer.HasIndex(e => new { e.ARDivisionNo, e.CustomerNo }).IsUnique();
+            customer.HasIndex(e => new { e.ARDivisionNo, e.CustomerNo });
             customer.Property(e => e.ARDivisionNo).IsRequired().HasMaxLength(2);
-            customer.Property(e => e.CustomerNo).IsRequired().HasMaxLength(20);
+            customer.Property(e => e.CustomerNo).HasMaxLength(20);
             customer.Property(e => e.CustomerName).HasMaxLength(30);
             customer.Property(e => e.AddressLine1).HasMaxLength(30);
             customer.Property(e => e.AddressLine2).HasMaxLength(30);
