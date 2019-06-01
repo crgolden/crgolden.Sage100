@@ -6,7 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E4290073-D58E-4C83-8139-C84AB131EFB5}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		Clarity.Sage.snk = Clarity.Sage.snk
+		crgolden.Sage.snk = crgolden.Sage.snk
 		NuGet.config = NuGet.config
 		README.md = README.md
 	EndProjectSection
@@ -23,9 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sage.Extensions", "Extensio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sage.Profiles", "Profiles\Sage.Profiles.csproj", "{A4514302-3F4B-475E-8866-488F33362263}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sage.Requests", "Requests\Sage.Requests.csproj", "{CD8E91B7-D4F8-4C86-B8CE-60B54773868C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sage.Requests", "Requests\Sage.Requests.csproj", "{CD8E91B7-D4F8-4C86-B8CE-60B54773868C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sage.RequestHandlers", "RequestHandlers\Sage.RequestHandlers.csproj", "{9E490C1F-D70E-4F9D-A576-584DDC3C6C74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sage.RequestHandlers", "RequestHandlers\Sage.RequestHandlers.csproj", "{9E490C1F-D70E-4F9D-A576-584DDC3C6C74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

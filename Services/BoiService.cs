@@ -1,4 +1,4 @@
-﻿namespace Clarity.Sage
+﻿namespace crgolden.Sage
 {
     using System;
     using System.Reflection;
@@ -11,11 +11,11 @@
 
         protected object Instance;
 
-        private readonly BindingFlags _method = BindingFlags.Public | BindingFlags.Static | BindingFlags.IgnoreCase | BindingFlags.InvokeMethod;
+        private const BindingFlags Method = BindingFlags.Public | BindingFlags.Static | BindingFlags.IgnoreCase | BindingFlags.InvokeMethod;
 
-        private readonly BindingFlags _getProperty = BindingFlags.Public | BindingFlags.Static | BindingFlags.IgnoreCase | BindingFlags.GetProperty;
+        private const BindingFlags GetFlags = BindingFlags.Public | BindingFlags.Static | BindingFlags.IgnoreCase | BindingFlags.GetProperty;
 
-        private readonly BindingFlags _setProperty = BindingFlags.Public | BindingFlags.Static | BindingFlags.IgnoreCase | BindingFlags.SetProperty;
+        private const BindingFlags SetFlags = BindingFlags.Public | BindingFlags.Static | BindingFlags.IgnoreCase | BindingFlags.SetProperty;
 
         protected BoiService()
         {
@@ -60,27 +60,27 @@
         public object InvokeMethodByRef(string name, object[] args)
         {
             var modifiers = new [] { GetParameterModifier(args.Length, true) };
-            return Type.InvokeMember(name, _method, null, Instance, args, modifiers, null, null);
+            return Type.InvokeMember(name, Method, null, Instance, args, modifiers, null, null);
         }
 
         public object InvokeMethod(string name, params object[] args)
         {
-            return Type.InvokeMember(name, _method, null, Instance, args);
+            return Type.InvokeMember(name, Method, null, Instance, args);
         }
 
         public object InvokeMethod(string name, object[] args, ParameterModifier[] modifiers)
         {
-            return Type.InvokeMember(name, _method, null, Instance, args, modifiers, null, null);
+            return Type.InvokeMember(name, Method, null, Instance, args, modifiers, null, null);
         }
 
         public object GetProperty(string name)
         {
-            return Type.InvokeMember(name, _getProperty, null, Instance, null);
+            return Type.InvokeMember(name, GetFlags, null, Instance, null);
         }
 
         public object SetProperty(string name, object value)
         {
-            return Type.InvokeMember(name, _setProperty, null, Instance, new[] { value });
+            return Type.InvokeMember(name, SetFlags, null, Instance, new[] { value });
         }
 
         public object GetObject()

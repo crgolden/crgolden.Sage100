@@ -1,4 +1,4 @@
-﻿namespace Clarity.Sage
+﻿namespace crgolden.Sage
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;

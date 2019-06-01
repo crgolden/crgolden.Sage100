@@ -1,4 +1,4 @@
-﻿namespace Clarity.Sage.MainAccounts
+﻿namespace crgolden.Sage.MainAccounts
 {
     using System;
     using System.Collections.Generic;

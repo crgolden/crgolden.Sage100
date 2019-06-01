@@ -1,4 +1,4 @@
-﻿namespace Clarity.Sage
+﻿namespace crgolden.Sage
 {
     using System.Collections.Generic;
 
@@ -8,11 +8,13 @@
         /// <summary>
         /// Invoice Number
         /// FmtType: MASTERNUM
+        /// </summary>
         public string InvoiceNo { get; set; }
 
         /// <summary>
         /// Invoice Date
         /// DepVal: REQUIRED
+        /// </summary>
         public string InvoiceDate { get; set; }
 
         /// <summary>

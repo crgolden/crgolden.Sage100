@@ -1,4 +1,4 @@
-﻿namespace Clarity.Sage.Accounts
+﻿namespace crgolden.Sage.Accounts
 {
     using System;
 

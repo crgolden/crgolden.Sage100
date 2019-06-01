@@ -1,4 +1,4 @@
-﻿namespace Clarity.Sage
+﻿namespace crgolden.Sage
 {
     public abstract class InvoiceDetail
     {

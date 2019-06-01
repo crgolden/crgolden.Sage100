@@ -1,7 +1,5 @@
-﻿namespace Clarity.Sage
+﻿namespace crgolden.Sage
 {
-    using System;
-
     public static class StringExtensions
     {
         public static string ToNonEmptyStringOrNull(this string value)

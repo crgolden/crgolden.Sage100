@@ -1,6 +1,6 @@
-﻿namespace Clarity.Sage
+﻿namespace crgolden.Sage
 {
-    using Clarity.Abstractions;
+    using Abstractions;
 
     public abstract class Record : Entity
     {

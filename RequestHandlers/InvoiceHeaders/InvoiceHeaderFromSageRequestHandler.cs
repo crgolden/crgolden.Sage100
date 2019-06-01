@@ -1,4 +1,4 @@
-﻿namespace Clarity.Sage.InvoiceHeaders
+﻿namespace crgolden.Sage.InvoiceHeaders
 {
     using System;
     using System.Threading;

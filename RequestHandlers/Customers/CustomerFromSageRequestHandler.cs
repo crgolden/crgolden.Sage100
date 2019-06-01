@@ -1,4 +1,4 @@
-﻿namespace Clarity.Sage.Customers
+﻿namespace crgolden.Sage.Customers
 {
     using System;
     using System.Collections.Generic;

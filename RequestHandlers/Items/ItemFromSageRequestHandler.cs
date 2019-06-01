@@ -1,4 +1,4 @@
-﻿namespace Clarity.Sage.Items
+﻿namespace crgolden.Sage.Items
 {
     using AutoMapper;
     using Microsoft.EntityFrameworkCore;

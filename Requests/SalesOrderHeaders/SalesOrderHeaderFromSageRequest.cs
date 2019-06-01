@@ -1,4 +1,4 @@
-﻿namespace Clarity.Sage.SalesOrderHeaders
+﻿namespace crgolden.Sage.SalesOrderHeaders
 {
     using System;
 
