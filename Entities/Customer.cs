@@ -1,5 +1,7 @@
-﻿namespace crgolden.Sage
+﻿namespace crgolden.Sage100
 {
+    using System.ComponentModel;
+
     public abstract class Customer : Record
     {
         /// <summary>
@@ -13,6 +15,7 @@
         /// Customer Number
         /// FmtType: MASTERNUMC
         /// </summary>
+        [ReadOnly(true)]
         public string CustomerNo { get; set; }
 
         /// <summary>
@@ -88,7 +91,7 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? EBMEnabled { get; set; } = false;
+        public string EBMEnabled { get; set; } = "N";
 
         /// <summary>
         /// eBusiness Manager Consumer User
@@ -101,7 +104,7 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? BatchFax { get; set; } = false;
+        public string BatchFax { get; set; } = "N";
 
         /// <summary>
         /// Default Credit Card Payment Typ
@@ -224,7 +227,7 @@
         /// <summary>
         /// Obsolete 5.00
         /// </summary>
-        public char? TemporaryCustomer { get; set; }
+        public string TemporaryCustomer { get; set; }
 
         /// <summary>
         /// Customer Status
@@ -232,7 +235,7 @@
         /// Valid: A, I, T
         /// Notes: A = Active, I = Inactive, T = Temporary
         /// </summary>
-        public char CustomerStatus { get; set; } = 'A';
+        public string CustomerStatus { get; set; } = "A";
 
         /// <summary>
         /// Inactive Reason Code
@@ -245,27 +248,27 @@
         /// DfltVal: Y
         /// Valid: Y, N
         /// </summary>
-        public bool OpenItemCustomer { get; set; } = true;
+        public string OpenItemCustomer { get; set; } = "Y";
 
         /// <summary>
         /// Residential Address
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? ResidentialAddress { get; set; } = false;
+        public string ResidentialAddress { get; set; } = "N";
 
         /// <summary>
         /// Statement Cycle
         /// DfltVal: M
         /// </summary>
-        public char? StatementCycle { get; set; } = 'M';
+        public string StatementCycle { get; set; } = "M";
 
         /// <summary>
         /// Print Dunning Message On Statem
         /// DfltVal: Y
         /// Valid: Y, N
         /// </summary>
-        public bool? PrintDunningMessage { get; set; } = true;
+        public string PrintDunningMessage { get; set; } = "Y";
 
         /// <summary>
         /// Customer Type
@@ -275,7 +278,7 @@
         /// <summary>
         /// Price Level
         /// </summary>
-        public char? PriceLevel { get; set; }
+        public string PriceLevel { get; set; }
 
         /// <summary>
         /// Date Of Last Activity
@@ -317,14 +320,14 @@
         /// <summary>
         /// Default Cost Type
         /// </summary>
-        public char? DefaultCostType { get; set; }
+        public string DefaultCostType { get; set; }
 
         /// <summary>
         /// Customer On Credit Hold
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? CreditHold { get; set; } = false;
+        public string CreditHold { get; set; } = "N";
 
         /// <summary>
         /// Primary Ship To Code
@@ -354,7 +357,7 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? EmailStatements { get; set; } = false;
+        public string EmailStatements { get; set; } = "N";
 
         /// <summary>
         /// Number Of Invoices To Use In Da
@@ -511,7 +514,7 @@
         /// Use Sage Cloud For Invoice Prin
         /// DfltVal: N
         /// </summary>
-        public bool? UseSageCloudForInvPrinting { get; set; } = false;
+        public string UseSageCloudForInvPrinting { get; set; } = "N";
 
         public new const string DefaultDesc = Record.DefaultDesc +
             "+\"" + Sep + "\"+" +

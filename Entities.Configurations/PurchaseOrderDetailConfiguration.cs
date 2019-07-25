@@ -1,4 +1,4 @@
-﻿namespace crgolden.Sage
+﻿namespace crgolden.Sage100
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;

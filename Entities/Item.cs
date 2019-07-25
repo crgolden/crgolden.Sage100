@@ -1,10 +1,13 @@
-﻿namespace crgolden.Sage
+﻿namespace crgolden.Sage100
 {
+    using System.ComponentModel;
+
     public abstract class Item : Record
     {
         /// <summary>
         /// Item Code
         /// </summary>
+        [ReadOnly(true)]
         public string ItemCode { get; set; }
 
         /// <summary>
@@ -15,7 +18,7 @@
         /// 4 = Comment Item,
         /// 5 = Miscellaneous Item
         /// </summary>
-        public ItemTypes ItemType { get; set; }
+        public string ItemType { get; set; }
 
         /// <summary>
         /// Item Code Description
@@ -26,6 +29,7 @@
         /// Extended Description Key
         /// Read Only: Y
         /// </summary>
+        [ReadOnly(true)]
         public string ExtendedDescriptionKey { get; set; }
 
         /// <summary>
@@ -34,28 +38,28 @@
         /// Valid: Y, N
         /// Notes: Always "N" for Item Type "1"
         /// </summary>
-        public bool UseInAR { get; set; } = false;
+        public string UseInAR { get; set; } = "N";
 
         /// <summary>
         /// Use In SO
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool UseInSO { get; set; } = false;
+        public string UseInSO { get; set; } = "N";
 
         /// <summary>
         /// Use In PO
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool UseInPO { get; set; } = false;
+        public string UseInPO { get; set; } = "N";
 
         /// <summary>
         /// Use In BM
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool UseInBM { get; set; } = false;
+        public string UseInBM { get; set; } = "N";
 
         /// <summary>
         /// Calculate Commission
@@ -65,35 +69,35 @@
         /// Type 1 valid values are N = No, S = Standard,
         /// P =% of Price, C=% of Cost, G =% of Gross Profit
         /// </summary>
-        public char CalculateCommission { get; set; } = 'N';
+        public string CalculateCommission { get; set; } = "N";
 
         /// <summary>
         /// Drop Ship
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool DropShip { get; set; } = false;
+        public string DropShip { get; set; } = "N";
 
         /// <summary>
         /// eBusiness Manager Enabled
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool EBMEnabled { get; set; } = false;
+        public string EBMEnabled { get; set; } = "N";
 
         /// <summary>
         /// Allow Back Orders
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool AllowBackOrders { get; set; } = false;
+        public string AllowBackOrders { get; set; } = "N";
 
         /// <summary>
         /// Allow Returns
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool AllowReturns { get; set; } = false;
+        public string AllowReturns { get; set; } = "N";
 
         /// <summary>
         /// Price Code
@@ -105,7 +109,7 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool AllowTradeDiscount { get; set; } = false;
+        public string AllowTradeDiscount { get; set; } = "N";
 
         /// <summary>
         /// Print Receipt Labels
@@ -113,28 +117,28 @@
         /// Valid: Y, N, I
         /// Notes: Y = Yes, N = No, I = Item
         /// </summary>
-        public char PrintReceiptLabels { get; set; } = 'N';
+        public string PrintReceiptLabels { get; set; } = "N";
 
         /// <summary>
         /// Allocate Landed Cost
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool AllocateLandedCost { get; set; } = false;
+        public string AllocateLandedCost { get; set; } = "N";
 
         /// <summary>
         /// Inactive Item
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool InactiveItem { get; set; } = false;
+        public string InactiveItem { get; set; } = "N";
 
         /// <summary>
         /// Confirm Cost Increase in Receip
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool ConfirmCostIncrInRcptOfGoods { get; set; } = false;
+        public string ConfirmCostIncrInRcptOfGoods { get; set; } = "N";
 
         /// <summary>
         /// Warranty Code
@@ -165,7 +169,7 @@
         /// Valid: Y, N
         /// Notes: Used by AR Sales Codes
         /// </summary>
-        public bool PostToGLByDivision { get; set; } = false;
+        public string PostToGLByDivision { get; set; } = "N";
 
         /// <summary>
         /// Sales Account Key
@@ -221,7 +225,7 @@
         /// Notes: F = Finished Good, R = Raw Material,
         /// D = Discontinued, K = Kit, Space = Blank
         /// </summary>
-        public char? ProductType { get; set; }
+        public string ProductType { get; set; }
 
         /// <summary>
         /// Valuation
@@ -230,7 +234,7 @@
         /// Notes: 1 = Standard, 2 = Average, 3 = Fifo, 4 = Lifo,
         /// 5 = Lot, 6 = Serial, Space = Blank
         /// </summary>
-        public char? Valuation { get; set; }
+        public string Valuation { get; set; }
 
         /// <summary>
         /// Default Warehouse Code
@@ -309,7 +313,7 @@
         /// Valid: D, P, N
         /// Notes: D = Sales Discount, P = Sale Price, N = None
         /// </summary>
-        public char SaleMethod { get; set; } = 'N';
+        public string SaleMethod { get; set; } = "N";
 
         /// <summary>
         /// Explode Kit Items
@@ -317,7 +321,7 @@
         /// Valid: A, N, P
         /// Notes: A = Always, N = Never, P = Prompt
         /// </summary>
-        public char ExplodeKitItems { get; set; } = 'N';
+        public string ExplodeKitItems { get; set; } = "N";
 
         /// <summary>
         /// Ship Weight
@@ -334,8 +338,10 @@
         /// DfltVal: N
         /// Valid: N, F, C, P
         /// Notes: N = None, F = Fixed, C = % of Cost, P = % of Price
+        /// Read Only: Y
         /// </summary>
-        public char RestockingMethod { get; set; } = 'N';
+        [ReadOnly(true)]
+        public string RestockingMethod { get; set; }
 
         /// <summary>
         /// Next Lot/Serial Number
@@ -345,7 +351,7 @@
         /// <summary>
         /// Inventory Cycle
         /// </summary>
-        public char? InventoryCycle { get; set; }
+        public string InventoryCycle { get; set; }
 
         /// <summary>
         /// Routing Number
@@ -358,7 +364,7 @@
         /// Valid: B, M, S
         /// Notes: B = Buy, M = Make, S = Subcontract
         /// </summary>
-        public char ProcurementType { get; set; } = 'B';
+        public string ProcurementType { get; set; } = "B";
 
         /// <summary>
         /// Planner Code
@@ -383,7 +389,7 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool PlannedByMRP { get; set; } = false;
+        public string PlannedByMRP { get; set; } = "N";
 
         /// <summary>
         /// Vendor Item Code
@@ -395,7 +401,7 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool SetupCharge { get; set; } = false;
+        public string SetupCharge { get; set; } = "N";
 
         /// <summary>
         /// Attachment File Name
@@ -436,6 +442,7 @@
         /// Read Only: Y
         /// Mask: ##,###,###.000000-
         /// </summary>
+        [ReadOnly(true)]
         public decimal? AverageUnitCost { get; set; }
 
         /// <summary>
@@ -461,6 +468,7 @@
         /// Read Only: Y
         /// Mask: ##,###,###.000000-
         /// </summary>
+        [ReadOnly(true)]
         public decimal? TotalQuantityOnHand { get; set; }
 
         /// <summary>
@@ -517,6 +525,7 @@
         /// Total Inventory Value
         /// Read Only: Y
         /// </summary>
+        [ReadOnly(true)]
         public decimal? TotalInventoryValue { get; set; }
 
         public new const string DefaultDesc = Record.DefaultDesc +

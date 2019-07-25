@@ -1,8 +1,6 @@
-﻿namespace crgolden.Sage
+﻿namespace crgolden.Sage100
 {
-    using System.Collections.Generic;
-
-    public abstract class SalesOrderHeader<TLine> : Record
+    public abstract class SalesOrderHeader<TLine> : Header<TLine>
         where TLine : SalesOrderDetail
     {
         /// <summary>
@@ -23,7 +21,7 @@
         /// Notes: S = Standard, B = Backorder, Q = Quote,
         /// M = Master order, R = Repeating order, P = Prospect Quote
         /// </summary>
-        public char? OrderType { get; set; }
+        public string OrderType { get; set; }
 
         /// <summary>
         /// Order Status
@@ -31,7 +29,7 @@
         /// Valid: N, O, C, H
         /// Notes: N = New, O = Open, C = Closed, H = Hold
         /// </summary>
-        public char? OrderStatus { get; set; } = 'N';
+        public string OrderStatus { get; set; } = "N";
 
         /// <summary>
         /// Master Repeating Order Number
@@ -235,35 +233,35 @@
         /// DfltVal :N
         /// Valid: Y, N
         /// </summary>
-        public bool? InvalidTaxCalc { get; set; } = false;
+        public string InvalidTaxCalc { get; set; } = "N";
 
         /// <summary>
         /// Print Sales Orders
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? PrintSalesOrders { get; set; } = false;
+        public string PrintSalesOrders { get; set; } = "N";
 
         /// <summary>
         /// Sales Order Printed
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? SalesOrderPrinted { get; set; } = false;
+        public string SalesOrderPrinted { get; set; } = "N";
 
         /// <summary>
         /// Print Picking Sheets
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? PrintPickingSheets { get; set; } = false;
+        public string PrintPickingSheets { get; set; } = "N";
 
         /// <summary>
         /// Picking Sheet Printed
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? PickingSheetPrinted { get; set; } = false;
+        public string PickingSheetPrinted { get; set; } = "N";
 
         /// <summary>
         /// Last Invoice Order Date
@@ -306,14 +304,14 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? BatchFax { get; set; } = false;
+        public string BatchFax { get; set; } = "N";
 
         /// <summary>
         /// Batch Email
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? BatchEmail { get; set; } = false;
+        public string BatchEmail { get; set; } = "N";
 
         /// <summary>
         /// Email Address
@@ -325,14 +323,14 @@
         /// Valid: A, P, W
         /// Notes: A = Amount, P = Product line, W = Weight
         /// </summary>
-        public char? FreightCalculationMethod { get; set; }
+        public string FreightCalculationMethod { get; set; }
 
         /// <summary>
         /// Lot/Serial Lines Exist
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? LotSerialLinesExist { get; set; } = false;
+        public string LotSerialLinesExist { get; set; } = "N";
 
         /// <summary>
         /// Salesperson Division Number
@@ -352,7 +350,7 @@
         /// Valid: Y, N, O
         /// Notes: Y = Yes, N = No, O = Override
         /// </summary>
-        public char? SplitCommissions { get; set; } = 'N';
+        public string SplitCommissions { get; set; } = "N";
 
         /// <summary>
         /// Salesperson Division Number 2
@@ -415,13 +413,13 @@
         /// Valid: 1, 2
         /// Notes: (1 = bus, 2 = consumer)
         /// </summary>
-        public EBMUserTypes? EBMUserType { get; set; }
+        public string EBMUserType { get; set; }
 
         /// <summary>
         /// EBM Internet Submission Type
         /// Read Only: Y
         /// </summary>
-        public char? EBMSubmissionType { get; set; }
+        public string EBMSubmissionType { get; set; }
 
         /// <summary>
         /// EBM Internet User ID Submitttin
@@ -447,7 +445,7 @@
         /// Valid: P, D
         /// Notes: P = Payment, D = Deposit
         /// </summary>
-        public char? PaymentTypeCategory { get; set; } = 'D';
+        public string PaymentTypeCategory { get; set; } = "D";
 
         /// <summary>
         /// Cancellation Reason Code
@@ -473,7 +471,7 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? ResidentialAddress { get; set; } = false;
+        public string ResidentialAddress { get; set; } = "N";
 
         /// <summary>
         /// CRM User ID
@@ -613,8 +611,6 @@
         /// Mask: 00
         /// </summary>
         public int? LastNoOfShippingLabels { get; set; }
-
-        public virtual ICollection<TLine> Lines { get; set; } = new HashSet<TLine>();
 
         public new const string DefaultDesc = Record.DefaultDesc +
             "+\"" + Sep + "\"+" +

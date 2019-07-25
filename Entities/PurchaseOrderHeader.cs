@@ -1,8 +1,6 @@
-﻿namespace crgolden.Sage
+﻿namespace crgolden.Sage100
 {
-    using System.Collections.Generic;
-
-    public abstract class PurchaseOrderHeader<TLine> : Record
+    public abstract class PurchaseOrderHeader<TLine> : Header<TLine>
         where TLine : PurchaseOrderDetail
     {
         /// <summary>
@@ -23,7 +21,7 @@
         /// Notes: (S = Standard, D = Drop Ship, M = Master,
         /// R = Repeating, X = Material Requisition)
         /// </summary>
-        public char OrderType { get; set; } = 'S';
+        public string OrderType { get; set; } = "S";
 
         /// <summary>
         /// Master Repeating Order Number
@@ -148,42 +146,42 @@
         /// Notes: (N = New, O = Open, B = Backordered,
         /// C = Change, X = complete)
         /// </summary>
-        public char? OrderStatus { get; set; } = 'N';
+        public string OrderStatus { get; set; } = "N";
 
         /// <summary>
         /// Use Tax
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? UseTax { get; set; } = false;
+        public string UseTax { get; set; } = "N";
 
         /// <summary>
         /// Print Purchase Orders
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? PrintPurchaseOrders { get; set; } = false;
+        public string PrintPurchaseOrders { get; set; } = "N";
 
         /// <summary>
         /// On Hold
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? OnHold { get; set; } = false;
+        public string OnHold { get; set; } = "N";
 
         /// <summary>
         /// Batch Fax
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? BatchFax { get; set; } = false;
+        public string BatchFax { get; set; } = "N";
 
         /// <summary>
         /// Batch Email
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? BatchEmail { get; set; } = false;
+        public string BatchEmail { get; set; } = "N";
 
         /// <summary>
         /// Email Address
@@ -257,7 +255,7 @@
         /// Valid: N, M, I, D
         /// DepVal: REQUIRED
         /// </summary>
-        public char? Form1099 { get; set; } = 'N';
+        public string Form1099 { get; set; } = "N";
 
         /// <summary>
         /// 1099 Box
@@ -321,7 +319,7 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? InvalidTaxCalc { get; set; } = false;
+        public string InvalidTaxCalc { get; set; } = "N";
 
         /// <summary>
         /// Sales Order Number
@@ -402,8 +400,6 @@
         /// Mask: ###,###,###.00-
         /// </summary>
         public decimal? BackOrderLostAmt { get; set; }
-
-        public virtual ICollection<TLine> Lines { get; set; } = new HashSet<TLine>();
 
         public new const string DefaultDesc = Record.DefaultDesc +
             "+\"" + Sep + "\"+" +

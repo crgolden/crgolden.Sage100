@@ -1,4 +1,4 @@
-﻿namespace crgolden.Sage
+﻿namespace crgolden.Sage100
 {
     using AutoMapper;
 
@@ -23,9 +23,9 @@
                 .ForMember(dest => dest.FaxNo, opt => opt.MapFrom(src => src[18].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.EmailAddress, opt => opt.MapFrom(src => src[19].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.URLAddress, opt => opt.MapFrom(src => src[20].ToNonEmptyStringOrNull()))
-                .ForMember(dest => dest.EBMEnabled, opt => opt.MapFrom(src => src[21].ToNullableBool()))
+                .ForMember(dest => dest.EBMEnabled, opt => opt.MapFrom(src => src[21]))
                 .ForMember(dest => dest.EBMConsumerUserID, opt => opt.MapFrom(src => src[22].ToNonEmptyStringOrNull()))
-                .ForMember(dest => dest.BatchFax, opt => opt.MapFrom(src => src[23].ToNullableBool()))
+                .ForMember(dest => dest.BatchFax, opt => opt.MapFrom(src => src[23]))
                 .ForMember(dest => dest.DefaultCreditCardPmtType, opt => opt.MapFrom(src => src[24].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.ContactCode, opt => opt.MapFrom(src => src[25].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.ShipMethod, opt => opt.MapFrom(src => src[26].ToNonEmptyStringOrNull()))
@@ -44,15 +44,15 @@
                 .ForMember(dest => dest.SalespersonNo5, opt => opt.MapFrom(src => src[39].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.Comment, opt => opt.MapFrom(src => src[40].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.SortField, opt => opt.MapFrom(src => src[41].ToNonEmptyStringOrNull()))
-                .ForMember(dest => dest.TemporaryCustomer, opt => opt.MapFrom(src => src[42].ToNullableChar()))
-                .ForMember(dest => dest.CustomerStatus, opt => opt.MapFrom(src => char.Parse(src[43])))
+                .ForMember(dest => dest.TemporaryCustomer, opt => opt.MapFrom(src => src[42]))
+                .ForMember(dest => dest.CustomerStatus, opt => opt.MapFrom(src => src[43]))
                 .ForMember(dest => dest.InactiveReasonCode, opt => opt.MapFrom(src => src[44].ToNonEmptyStringOrNull()))
-                .ForMember(dest => dest.OpenItemCustomer, opt => opt.MapFrom(src => src[45].ToNullableBool()))
-                .ForMember(dest => dest.ResidentialAddress, opt => opt.MapFrom(src => src[46].ToNullableBool()))
-                .ForMember(dest => dest.StatementCycle, opt => opt.MapFrom(src => src[47].ToNullableChar()))
-                .ForMember(dest => dest.PrintDunningMessage, opt => opt.MapFrom(src => src[48].ToNullableBool()))
+                .ForMember(dest => dest.OpenItemCustomer, opt => opt.MapFrom(src => src[45]))
+                .ForMember(dest => dest.ResidentialAddress, opt => opt.MapFrom(src => src[46]))
+                .ForMember(dest => dest.StatementCycle, opt => opt.MapFrom(src => src[47]))
+                .ForMember(dest => dest.PrintDunningMessage, opt => opt.MapFrom(src => src[48]))
                 .ForMember(dest => dest.CustomerType, opt => opt.MapFrom(src => src[49].ToNonEmptyStringOrNull()))
-                .ForMember(dest => dest.PriceLevel, opt => opt.MapFrom(src => src[50].ToNullableChar()))
+                .ForMember(dest => dest.PriceLevel, opt => opt.MapFrom(src => src[50]))
                 .ForMember(dest => dest.DateLastActivity, opt => opt.MapFrom(src => src[51].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.DateLastPayment, opt => opt.MapFrom(src => src[52].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.DateLastStatement, opt => opt.MapFrom(src => src[53].ToNonEmptyStringOrNull()))
@@ -60,13 +60,13 @@
                 .ForMember(dest => dest.DateLastAging, opt => opt.MapFrom(src => src[55].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.DefaultItemCode, opt => opt.MapFrom(src => src[56].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.DefaultCostCode, opt => opt.MapFrom(src => src[57].ToNonEmptyStringOrNull()))
-                .ForMember(dest => dest.DefaultCostType, opt => opt.MapFrom(src => src[58].ToNullableChar()))
-                .ForMember(dest => dest.CreditHold, opt => opt.MapFrom(src => src[59].ToNullableBool()))
+                .ForMember(dest => dest.DefaultCostType, opt => opt.MapFrom(src => src[58]))
+                .ForMember(dest => dest.CreditHold, opt => opt.MapFrom(src => src[59]))
                 .ForMember(dest => dest.PrimaryShipToCode, opt => opt.MapFrom(src => src[60].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.DateEstablished, opt => opt.MapFrom(src => src[61].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.CreditCardGUID, opt => opt.MapFrom(src => src[62].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.DefaultPaymentType, opt => opt.MapFrom(src => src[63].ToNonEmptyStringOrNull()))
-                .ForMember(dest => dest.EmailStatements, opt => opt.MapFrom(src => src[64].ToNullableBool()))
+                .ForMember(dest => dest.EmailStatements, opt => opt.MapFrom(src => src[64]))
                 .ForMember(dest => dest.NumberOfInvToUseInCalc, opt => opt.MapFrom(src => src[65].ToNullableInt()))
                 .ForMember(dest => dest.AvgDaysPaymentInvoice, opt => opt.MapFrom(src => src[66].ToNullableInt()))
                 .ForMember(dest => dest.AvgDaysOverDue, opt => opt.MapFrom(src => src[67].ToNullableInt()))
@@ -92,7 +92,7 @@
                 .ForMember(dest => dest.SplitCommRate3, opt => opt.MapFrom(src => src[87].ToNullableDecimal()))
                 .ForMember(dest => dest.SplitCommRate4, opt => opt.MapFrom(src => src[88].ToNullableDecimal()))
                 .ForMember(dest => dest.SplitCommRate5, opt => opt.MapFrom(src => src[89].ToNullableDecimal()))
-                .ForMember(dest => dest.UseSageCloudForInvPrinting, opt => opt.MapFrom(src => src[90].ToNullableBool()));
+                .ForMember(dest => dest.UseSageCloudForInvPrinting, opt => opt.MapFrom(src => src[90]));
         }
     }
 }

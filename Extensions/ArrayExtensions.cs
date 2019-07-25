@@ -1,4 +1,4 @@
-﻿namespace crgolden.Sage
+﻿namespace crgolden.Sage100
 {
     using System.Linq;
 
@@ -7,11 +7,11 @@
         public static T[] ConcatArrays<T>(this T[][] arrays)
         {
             var result = new T[arrays.Sum(a => a.Length)];
-            int offset = 0;
-            for (int x = 0; x < arrays.Length; x++)
+            var offset = 0;
+            foreach (var array in arrays)
             {
-                arrays[x].CopyTo(result, offset);
-                offset += arrays[x].Length;
+                array.CopyTo(result, offset);
+                offset += array.Length;
             }
 
             return result;

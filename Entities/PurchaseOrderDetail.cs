@@ -1,4 +1,4 @@
-﻿namespace crgolden.Sage
+﻿namespace crgolden.Sage100
 {
     public abstract class PurchaseOrderDetail
     {
@@ -41,7 +41,7 @@
         /// Notes: 1 = Regular Item, 2 = Special Item, 3 = Charge Item,
         /// 4 = Comment Item, 5 = Miscellaneous Item
         /// </summary>
-        public ItemTypes? ItemType { get; set; }
+        public string ItemType { get; set; }
 
         /// <summary>
         /// Item Code Description
@@ -53,7 +53,7 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? UseTax { get; set; } = false;
+        public string UseTax { get; set; } = "N";
 
         /// <summary>
         /// Required Date
@@ -79,7 +79,7 @@
         /// Notes: 1 = Standard, 2 = Average, 3 = Fifo, 4 = Lifo,
         /// 5 = Lot, 6 = Serial
         /// </summary>
-        public Valuations? Valuation { get; set; }
+        public string Valuation { get; set; }
 
         /// <summary>
         /// Unit Of Measure
@@ -114,7 +114,7 @@
         /// Valid: Y, N
         /// Notes: Dflt: N (If Mrp Integrated)
         /// </summary>
-        public bool? Reschedule { get; set; } = false;
+        public string Reschedule { get; set; } = "N";
 
         /// <summary>
         /// Job Number
@@ -133,7 +133,7 @@
         /// Cost Type
         /// DepVal: REQUIRED
         /// </summary>
-        public char? CostType { get; set; }
+        public string CostType { get; set; }
 
         /// <summary>
         /// Receipt Of Goods Updated
@@ -141,7 +141,7 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? ReceiptOfGoodsUpdated { get; set; } = false;
+        public string ReceiptOfGoodsUpdated { get; set; } = "N";
 
         /// <summary>
         /// Work Order Number
@@ -160,7 +160,7 @@
         /// Sub-Step Prefix
         /// DepVal: REQUIRED
         /// </summary>
-        public char? SubStepPrefix { get; set; }
+        public string SubStepPrefix { get; set; }
 
         /// <summary>
         /// Sub-Step Suffix
@@ -172,14 +172,14 @@
         /// Work Order Type
         /// DepVal: REQUIRED
         /// </summary>
-        public char? WorkOrderType { get; set; }
+        public string WorkOrderType { get; set; }
 
         /// <summary>
         /// Allocate Landed Cost
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? AllocateLandedCost { get; set; } = false;
+        public string AllocateLandedCost { get; set; } = "N";
 
         /// <summary>
         /// Vendor Alias Item Number
@@ -203,7 +203,7 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? AssetAccount { get; set; } = false;
+        public string AssetAccount { get; set; } = "N";
 
         /// <summary>
         /// Asset Template

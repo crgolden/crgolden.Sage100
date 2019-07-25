@@ -1,4 +1,4 @@
-﻿namespace crgolden.Sage
+﻿namespace crgolden.Sage100
 {
     public abstract class MainAccount : Record
     {
@@ -46,7 +46,7 @@
         /// Valid: A, I, D
         /// Notes: A = Active *, I = Inactive, D = Deleted
         /// </summary>
-        public char Status { get; set; } = 'A';
+        public string Status { get; set; } = "A";
 
         /// <summary>
         /// Clear Balance
@@ -54,7 +54,7 @@
         /// Valid: Y, N
         /// Notes: Y = Year end, N = Never *
         /// </summary>
-        public char ClearBalance { get; set; } = 'N';
+        public string ClearBalance { get; set; } = "N";
 
         /// <summary>
         /// Account Group
@@ -67,7 +67,7 @@
         /// Read Only: Y
         /// Notes: from GL_AccountGroup
         /// </summary>
-        public char AccountCategory { get; set; }
+        public string AccountCategory { get; set; }
 
         /// <summary>
         /// Account Type
@@ -83,7 +83,7 @@
         /// Valid: C, F, N, I, O
         /// Notes: C = Cash, F = Financing, I = Investment, N = None *, O = Operations
         /// </summary>
-        public char CashFlowsType { get; set; } = 'N';
+        public string CashFlowsType { get; set; } = "N";
 
         /// <summary>
         /// Rollup Code 1

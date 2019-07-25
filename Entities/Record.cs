@@ -1,20 +1,22 @@
-﻿namespace crgolden.Sage
+﻿namespace crgolden.Sage100
 {
-    using Abstractions;
+    using System.ComponentModel;
 
-    public abstract class Record : Entity
+    public abstract class Record
     {
         /// <summary>
         /// Creation Date
         /// Read Only: Y
         /// Notes: YYYYMMDD
         /// </summary>
+        [ReadOnly(true)]
         public string DateCreated { get; set; }
 
         /// <summary>
         /// Creation Time
         /// Read Only: Y
         /// </summary>
+        [ReadOnly(true)]
         public string TimeCreated { get; set; }
 
         /// <summary>
@@ -23,6 +25,7 @@
         /// Mask: 0000000000
         /// FmtType: ZEROFILL
         /// </summary>
+        [ReadOnly(true)]
         public string UserCreatedKey { get; set; }
 
         /// <summary>
@@ -30,12 +33,14 @@
         /// Read Only: Y
         /// Notes: YYYYMMDD
         /// </summary>
+        [ReadOnly(true)]
         public string DateUpdated { get; set; }
 
         /// <summary>
         /// Last Update Time
         /// Read Only: Y
         /// </summary>
+        [ReadOnly(true)]
         public string TimeUpdated { get; set; }
 
         /// <summary>
@@ -44,6 +49,7 @@
         /// Mask: 0000000000
         /// FmtType: ZEROFILL
         /// </summary>
+        [ReadOnly(true)]
         public string UserUpdatedKey { get; set; }
 
         public const string Sep = "_,_";

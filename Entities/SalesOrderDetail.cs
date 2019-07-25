@@ -1,4 +1,4 @@
-﻿namespace crgolden.Sage
+﻿namespace crgolden.Sage100
 {
     public abstract class SalesOrderDetail
     {
@@ -36,7 +36,7 @@
         /// Notes: 1 = Regular Item, 2 = Special Item, 3 = Charge Item,
         /// 4 = Comment Item, 5 = Miscellaneous Item
         /// </summary>
-        public ItemTypes ItemType { get; set; }
+        public string ItemType { get; set; }
 
         /// <summary>
         /// Item Code Description
@@ -54,21 +54,21 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? Discount { get; set; } = false;
+        public string Discount { get; set; } = "N";
 
         /// <summary>
         /// Commissionable
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? Commissionable { get; set; } = false;
+        public string Commissionable { get; set; } = "N";
 
         /// <summary>
         /// Subject To Exemption
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? SubjectToExemption { get; set; } = false;
+        public string SubjectToExemption { get; set; } = "N";
 
         /// <summary>
         /// Warehouse Code
@@ -82,13 +82,13 @@
         /// Notes: 1 = Standard, 2 = Average, 3 = Fifo, 4 = Lifo,
         /// 5 = Lot, 6 = Serial
         /// </summary>
-        public Valuations? Valuation { get; set; }
+        public string Valuation { get; set; }
 
         /// <summary>
         /// Price Level
         /// DepVal: REQUIRED
         /// </summary>
-        public char? PriceLevel { get; set; }
+        public string PriceLevel { get; set; }
 
         /// <summary>
         /// Master Order Line Key
@@ -107,21 +107,21 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? DropShip { get; set; } = false;
+        public string DropShip { get; set; } = "N";
 
         /// <summary>
         /// Lot/Serial Fully Distributed
         /// DfltVal: Y
         /// Valid: Y, N
         /// </summary>
-        public bool? LotSerialFullyDistributed { get; set; } = true;
+        public string LotSerialFullyDistributed { get; set; } = "Y";
 
         /// <summary>
         /// Print Drop Shipment
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? PrintDropShipment { get; set; } = false;
+        public string PrintDropShipment { get; set; } = "N";
 
         /// Sales Kit Line Key
         /// Mask: 000000
@@ -147,21 +147,21 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? PriceOverridden { get; set; } = false;
+        public string PriceOverridden { get; set; } = "N";
 
         /// <summary>
         /// Exploded Kit Item
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? ExplodedKitItem { get; set; } = false;
+        public string ExplodedKitItem { get; set; } = "N";
 
         /// <summary>
         /// Standard/Kit Bill
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? StandardKitBill { get; set; } = false;
+        public string StandardKitBill { get; set; } = "N";
 
         /// <summary>
         /// Bill Revision Code
@@ -237,7 +237,7 @@
         /// Valid: Y, N
         /// Notes: Kit Bckord = 0, Comp Bckord > 0 Flg = Y
         /// </summary>
-        public bool? BackorderKitCompLine { get; set; } = false;
+        public string BackorderKitCompLine { get; set; } = "N";
 
         /// <summary>
         /// Skip Printing Of This Component
@@ -245,7 +245,7 @@
         /// Valid: Y, N
         /// Notes: Line In S/O
         /// </summary>
-        public bool? SkipPrintCompLine { get; set; } = false;
+        public string SkipPrintCompLine { get; set; } = "N";
 
         /// <summary>
         /// Promise Date
@@ -275,7 +275,7 @@
         /// Valid: N, C, P, R
         /// Notes: N = None, C = Credit, P = rePlacement, R = Repair
         /// </summary>
-        public char? CustomerAction { get; set; } = 'N';
+        public string CustomerAction { get; set; } = "N";
 
         /// <summary>
         /// Item Action
@@ -283,7 +283,7 @@
         /// Valid: N, S, P, R
         /// Notes: N = None, S = Stock, P = scraP, R = Repair
         /// </summary>
-        public char? ItemAction { get; set; } = 'N';
+        public string ItemAction { get; set; } = "N";
 
         /// <summary>
         /// Warranty Code
@@ -301,14 +301,14 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? ExpirationOverridden { get; set; } = false;
+        public string ExpirationOverridden { get; set; } = "N";
 
         /// <summary>
         /// Cost Overridden
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? CostOverridden { get; set; } = false;
+        public string CostOverridden { get; set; } = "N";
 
         /// <summary>
         /// Cost Code
@@ -321,7 +321,7 @@
         /// Cost Type
         /// DepVal: REQUIRED
         /// </summary>
-        public char? CostType { get; set; }
+        public string CostType { get; set; }
 
         /// <summary>
         /// Comment Text
@@ -457,10 +457,10 @@
         /// Net Gross Indicator
         /// DfltVal: N
         /// Valid: Y, N
-        /// Notes: Always false (N); Per SPS, when true this
+        /// Notes: Always "N" (N); Per SPS, when true this
         /// indicates sales tax included in ExtendedItemAmount
         /// </summary>
-        public bool? NetGrossIndicator { get; set; } = false;
+        public string NetGrossIndicator { get; set; } = "N";
 
         /// <summary>
         /// Debit Credit Indicator
@@ -468,7 +468,7 @@
         /// Valid: D, C
         /// Notes: Per SPS, Always 'C'reditcard
         /// </summary>
-        public char? DebitCreditIndicator { get; set; } = 'C';
+        public string DebitCreditIndicator { get; set; } = "C";
 
         /// <summary>
         /// Tax Amount

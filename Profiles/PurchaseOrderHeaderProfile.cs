@@ -1,4 +1,4 @@
-﻿namespace crgolden.Sage
+﻿namespace crgolden.Sage100
 {
     public abstract class PurchaseOrderHeaderProfile<TLine> : RecordProfile
         where TLine : PurchaseOrderDetail
@@ -9,7 +9,7 @@
                 .IncludeAllDerived()
                 .ForMember(dest => dest.PurchaseOrderNo, opt => opt.MapFrom(src => src[6]))
                 .ForMember(dest => dest.PurchaseOrderDate, opt => opt.MapFrom(src => src[7]))
-                .ForMember(dest => dest.OrderType, opt => opt.MapFrom(src => char.Parse(src[8])))
+                .ForMember(dest => dest.OrderType, opt => opt.MapFrom(src => src[8]))
                 .ForMember(dest => dest.MasterRepeatingOrderNo, opt => opt.MapFrom(src => src[9].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.RequiredExpireDate, opt => opt.MapFrom(src => src[10].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.APDivisionNo, opt => opt.MapFrom(src => src[11].ToNonEmptyStringOrNull()))
@@ -32,12 +32,12 @@
                 .ForMember(dest => dest.ShipToState, opt => opt.MapFrom(src => src[28].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.ShipToZipCode, opt => opt.MapFrom(src => src[29].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.ShipToCountryCode, opt => opt.MapFrom(src => src[30].ToNonEmptyStringOrNull()))
-                .ForMember(dest => dest.OrderStatus, opt => opt.MapFrom(src => src[31].ToNullableChar()))
-                .ForMember(dest => dest.UseTax, opt => opt.MapFrom(src => src[32].ToNullableBool()))
-                .ForMember(dest => dest.PrintPurchaseOrders, opt => opt.MapFrom(src => src[33].ToNullableBool()))
-                .ForMember(dest => dest.OnHold, opt => opt.MapFrom(src => src[34].ToNullableBool()))
-                .ForMember(dest => dest.BatchFax, opt => opt.MapFrom(src => src[35].ToNullableBool()))
-                .ForMember(dest => dest.BatchEmail, opt => opt.MapFrom(src => src[36].ToNullableBool()))
+                .ForMember(dest => dest.OrderStatus, opt => opt.MapFrom(src => src[31]))
+                .ForMember(dest => dest.UseTax, opt => opt.MapFrom(src => src[32]))
+                .ForMember(dest => dest.PrintPurchaseOrders, opt => opt.MapFrom(src => src[33]))
+                .ForMember(dest => dest.OnHold, opt => opt.MapFrom(src => src[34]))
+                .ForMember(dest => dest.BatchFax, opt => opt.MapFrom(src => src[35]))
+                .ForMember(dest => dest.BatchEmail, opt => opt.MapFrom(src => src[36]))
                 .ForMember(dest => dest.EmailAddress, opt => opt.MapFrom(src => src[37].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.CompletionDate, opt => opt.MapFrom(src => src[38].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.ShipVia, opt => opt.MapFrom(src => src[39].ToNonEmptyStringOrNull()))
@@ -50,7 +50,7 @@
                 .ForMember(dest => dest.TermsCode, opt => opt.MapFrom(src => src[46].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.LastInvoiceDate, opt => opt.MapFrom(src => src[47].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.LastInvoiceNo, opt => opt.MapFrom(src => src[48].ToNonEmptyStringOrNull()))
-                .ForMember(dest => dest.Form1099, opt => opt.MapFrom(src => src[49].ToNullableChar()))
+                .ForMember(dest => dest.Form1099, opt => opt.MapFrom(src => src[49]))
                 .ForMember(dest => dest.Box1099, opt => opt.MapFrom(src => src[50].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.LastReceiptDate, opt => opt.MapFrom(src => src[51].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.LastIssueDate, opt => opt.MapFrom(src => src[52].ToNonEmptyStringOrNull()))
@@ -61,7 +61,7 @@
                 .ForMember(dest => dest.PrepaidCheckNo, opt => opt.MapFrom(src => src[57].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.FaxNo, opt => opt.MapFrom(src => src[58].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.TaxSchedule, opt => opt.MapFrom(src => src[59].ToNonEmptyStringOrNull()))
-                .ForMember(dest => dest.InvalidTaxCalc, opt => opt.MapFrom(src => src[60].ToNullableBool()))
+                .ForMember(dest => dest.InvalidTaxCalc, opt => opt.MapFrom(src => src[60]))
                 .ForMember(dest => dest.SalesOrderNo, opt => opt.MapFrom(src => src[61].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.RequisitorName, opt => opt.MapFrom(src => src[62].ToNonEmptyStringOrNull()))
                 .ForMember(dest => dest.RequisitorDepartment, opt => opt.MapFrom(src => src[63].ToNonEmptyStringOrNull()))

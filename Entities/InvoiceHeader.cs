@@ -1,8 +1,6 @@
-﻿namespace crgolden.Sage
+﻿namespace crgolden.Sage100
 {
-    using System.Collections.Generic;
-
-    public abstract class InvoiceHeader<TLine> : Record
+    public abstract class InvoiceHeader<TLine> : Header<TLine>
         where TLine : InvoiceDetail
     {
         /// <summary>
@@ -38,7 +36,7 @@
         /// Valid: B, S, 1
         /// Notes: B = Backorder, S = Standard, 1 = Step
         /// </summary>
-        public char? OrderType { get; set; } = '1';
+        public string OrderType { get; set; } = "1";
 
         /// <summary>
         /// Order Status
@@ -46,7 +44,7 @@
         /// Valid: N, O, C, H
         /// Notes: N = New, O = Open, C = Closed, H = Hold
         /// </summary>
-        public char? OrderStatus { get; set; }
+        public string OrderStatus { get; set; }
 
         /// <summary>
         /// Order Date
@@ -249,21 +247,21 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? PrintInvoice { get; set; } = false;
+        public string PrintInvoice { get; set; } = "N";
 
         /// <summary>
         /// Invoice Printed
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? InvoicePrinted { get; set; } = false;
+        public string InvoicePrinted { get; set; } = "N";
 
         /// <summary>
         /// Accept Cash Only
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? AcceptCashOnly { get; set; } = false;
+        public string AcceptCashOnly { get; set; } = "N";
 
         /// <summary>
         /// Customer Type
@@ -275,21 +273,21 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? ResidentialAddress { get; set; } = false;
+        public string ResidentialAddress { get; set; } = "N";
 
         /// <summary>
         /// Invalid Tax Calculation
         /// DfltVal :N
         /// Valid: Y, N
         /// </summary>
-        public bool? InvalidTaxCalc { get; set; } = false;
+        public string InvalidTaxCalc { get; set; } = "N";
 
         /// <summary>
         /// Freight Calculation Method
         /// Valid: A, P, W
         /// Notes: A = Amount, P = Product line, W = Weight
         /// </summary>
-        public char? FreightCalculationMethod { get; set; }
+        public string FreightCalculationMethod { get; set; }
 
         /// <summary>
         /// Check Number For Deposit
@@ -310,7 +308,7 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? LotSerialLinesExist { get; set; } = false;
+        public string LotSerialLinesExist { get; set; } = "N";
 
         /// <summary>
         /// Salesperson Division Number
@@ -330,7 +328,7 @@
         /// Valid: Y, N, O
         /// Notes: Y = Yes, N = No, O = Override
         /// </summary>
-        public char? SplitCommissions { get; set; } = 'N';
+        public string SplitCommissions { get; set; } = "N";
 
         /// <summary>
         /// Salesperson Division Number 2
@@ -410,7 +408,7 @@
         /// Valid: M, A
         /// Notes: M = Manual, A = Auto
         /// </summary>
-        public char? EBMSubmissionType { get; set; }
+        public string EBMSubmissionType { get; set; }
 
         /// <summary>
         /// EBM Internet User ID Submitttin
@@ -423,12 +421,12 @@
         /// Valid: 1, 2
         /// Notes: (1 = bus, 2 = consumer)
         /// </summary>
-        public EBMUserTypes? EBMUserType { get; set; }
+        public string EBMUserType { get; set; }
 
         /// <summary>
         /// E-Mail Update Flag for Restart
         /// </summary>
-        public char? EMailUpdateFlagForRestart { get; set; }
+        public string EMailUpdateFlagForRestart { get; set; }
 
         /// <summary>
         /// Fax Number
@@ -441,14 +439,14 @@
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? BatchFax { get; set; } = false;
+        public string BatchFax { get; set; } = "N";
 
         /// <summary>
         /// Batch Email
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? BatchEmail { get; set; } = false;
+        public string BatchEmail { get; set; } = "N";
 
         /// <summary>
         /// Email Address
@@ -473,21 +471,21 @@
         /// Valid: P, D
         /// Notes: P = Payment, D = Deposit
         /// </summary>
-        public char? PaymentTypeCategory { get; set; } = 'D';
+        public string PaymentTypeCategory { get; set; } = "D";
 
         /// <summary>
         /// Order Changed In Shipping
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? OrderChangedInShipping { get; set; } = false;
+        public string OrderChangedInShipping { get; set; } = "N";
 
         /// <summary>
         /// Lines Changed In Shipping
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? LinesChangedInShipping { get; set; } = false;
+        public string LinesChangedInShipping { get; set; } = "N";
 
         /// <summary>
         /// Shipper ID
@@ -499,21 +497,21 @@
         /// Valid: N, L, S, D
         /// Notes: N = New, L = Lines completed, S = Shipped, D = Deleted
         /// </summary>
-        public char? ShipStatus { get; set; }
+        public string ShipStatus { get; set; }
 
         /// <summary>
         /// Starship Freight Used
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? StarshipFreightUsed { get; set; } = false;
+        public string StarshipFreightUsed { get; set; } = "N";
 
         /// <summary>
         /// Starship Records Created
         /// DfltVal: N
         /// Valid: Y, N
         /// </summary>
-        public bool? StarshipRecordsCreated { get; set; } = false;
+        public string StarshipRecordsCreated { get; set; } = "N";
 
         /// <summary>
         /// Job Number
@@ -554,7 +552,7 @@
         /// Valid: Y, N
         /// Notes: Set at Pre-Update
         /// </summary>
-        public bool? InvalidWarrantyCode { get; set; } = false;
+        public string InvalidWarrantyCode { get; set; } = "N";
 
         /// <summary>
         /// Taxable Subject To Discount
@@ -735,8 +733,6 @@
         /// Mask: 0000
         /// </summary>
         public int? NumberofPackages { get; set; }
-
-        public virtual ICollection<TLine> Lines { get; set; } = new HashSet<TLine>();
 
         public new const string DefaultDesc = Record.DefaultDesc +
             "+\"" + Sep + "\"+" +
